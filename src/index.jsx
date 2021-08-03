@@ -7,6 +7,7 @@ import About from './pages/about';
 import Editor from './pages/editor';
 import Home from './pages/home';
 import Login from './pages/login';
+import PressRoom from './pages/press-room';
 import Signup from './pages/signup';
 
 ReactDOM.render(
@@ -18,6 +19,7 @@ ReactDOM.render(
           <Route path="/signup" component={Signup} />
           <Route path="/editor" component={Editor} />
           <Route path="/about" component={About} />
+          <Route path="/press-room" component={PressRoom} />
           <Route path="/" component={Home} />
         </Switch>
       </Router>
