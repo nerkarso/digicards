@@ -1,35 +1,33 @@
-import AspectRatioTwoToneIcon from '@material-ui/icons/AspectRatioTwoTone';
-import FormatPaintTwoToneIcon from '@material-ui/icons/FormatPaintTwoTone';
-import InvertColorsTwoToneIcon from '@material-ui/icons/InvertColorsTwoTone';
+import { AspectRatioTwoTone, FormatPaintTwoTone, InvertColorsTwoTone } from '@material-ui/icons';
 
 export const features = [
   {
-    icon: InvertColorsTwoToneIcon,
+    icon: InvertColorsTwoTone,
     title: 'Branding',
     body: 'Add your logo, brand color palette, fonts, and other visual elements to make your designs consistent and on-brand.',
   },
   {
-    icon: FormatPaintTwoToneIcon,
+    icon: FormatPaintTwoTone,
     title: 'Customizing',
     body: 'Customize Digicards layouts to suit your style and business brand. Upload your logo, change the text and fonts, add your brand colors in seconds.',
   },
   {
-    icon: AspectRatioTwoToneIcon,
+    icon: AspectRatioTwoTone,
     title: 'Easy Resize',
     body: 'No need to create another design for different sizes. With Digicards, you can resize your beautiful card into any other preset or custom dimensions in just one click.',
   },
   // {
-  //   icon: FileCopyTwoToneIcon,
+  //   icon: FileCopyTwoTone,
   //   title: 'Templates',
   //   body: 'Designing with Digicards is a breeze. We have created hundreds of amazing templates for you to customize for a perfect card.',
   // },
   // {
-  //   icon: EditTwoToneIcon,
+  //   icon: EditTwoTone,
   //   title: 'Editing',
   //   body: 'Edit your chosen template. Add or remove graphic elements, resize objects, upload your own images, change fonts and more.',
   // },
   // {
-  //   icon: ChangeHistoryTwoToneIcon,
+  //   icon: ChangeHistoryTwoTone,
   //   title: 'Shapes, Embeds, and More',
   //   body: 'Access a couple free and premium objects, frames, masks, stickers, and icons to create the design you want in seconds.',
   // },

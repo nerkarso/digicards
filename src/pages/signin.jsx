@@ -1,9 +1,9 @@
 import FooterEnding from '@/components/FooterEnding';
-import { Button, Checkbox, Input } from '@/elements';
+import { Button, Input } from '@/elements';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Signup() {
+export default function Signin() {
   const onSubmit = (e) => {
     e.preventDefault();
   };
@@ -13,31 +13,22 @@ export default function Signup() {
       <main className="container flex flex-col items-center flex-grow max-w-screen-xl px-5 py-12 mx-auto md:flex-row">
         <div className="flex flex-col items-center mb-16 text-center lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 md:items-start md:text-left md:mb-0">
           <form onSubmit={onSubmit} className="w-full mx-auto md:p-6 md:max-w-sm">
-            <h1 className="mb-10 text-3xl font-bold text-center">Create your account</h1>
-            <div className="mb-4">
-              <Input type="text" className="w-full" placeholder="Full name" />
-            </div>
+            <h1 className="mb-10 text-3xl font-bold text-center">Welcome back</h1>
             <div className="mb-4">
               <Input type="email" className="w-full" placeholder="Email address" />
             </div>
-            <div className="mb-4">
+            <div className="mb-6">
               <Input type="password" className="w-full" placeholder="Password" />
             </div>
             <div className="mb-4">
-              <Input type="password" className="w-full" placeholder="Confirm password" />
-            </div>
-            <div className="mb-4">
-              <Checkbox>I accept the terms of service</Checkbox>
-            </div>
-            <div className="mb-6">
               <Button type="submit" color="primary" className="w-full">
-                Sign up
+                Sign in
               </Button>
             </div>
             <p className="mb-2 text-neutral-600">
-              Already have an account?{' '}
-              <Link to="/signin" className="link">
-                Sign in
+              Don't have an account yet?{' '}
+              <Link to="/signup" className="link">
+                Create account
               </Link>
             </p>
             <Link to="/" className="link">
@@ -46,7 +37,7 @@ export default function Signup() {
           </form>
         </div>
         <div className="hidden w-5/6 md:block lg:max-w-lg lg:w-full md:w-1/2">
-          <img src="/img/undraw-online-cv.svg" className="object-cover object-center rounded" />
+          <img src="/img/undraw-authentication.svg" className="object-cover object-center rounded" alt />
         </div>
       </main>
       <FooterEnding />

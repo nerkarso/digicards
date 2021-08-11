@@ -1,7 +1,7 @@
+import SocialLinks from '@/components/SocialLinks';
 import React from 'react';
-import SocialLinks from './SocialLinks';
 
-export default function Footer() {
+export default function FooterEnding() {
   return (
     <footer className="bg-neutral-100">
       <div className="container flex flex-col items-center justify-center max-w-screen-xl px-5 py-8 mx-auto sm:justify-between sm:flex-row-reverse">

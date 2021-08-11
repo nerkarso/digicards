@@ -1,15 +1,15 @@
-import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
+import WebsiteLayout from '@/components/WebsiteLayout';
+import { services } from '@/data';
+import { CheckCircleTwoTone } from '@material-ui/icons';
 import React from 'react';
-import Layout from '../components/Layout';
-import { services } from '../data';
 
 export default function About() {
   return (
-    <Layout>
+    <WebsiteLayout>
       <Hero />
       <Mission />
       <Services />
-    </Layout>
+    </WebsiteLayout>
   );
 }
 
@@ -17,7 +17,7 @@ function Hero() {
   return (
     <section className="mb-12 bg-primary-900">
       <div className="flex justify-center px-5 py-16">
-        <img src="/topexcel.png" alt="TopExcel" />
+        <img src="/img/topexcel.png" />
       </div>
     </section>
   );
@@ -31,8 +31,7 @@ function Mission() {
         <div className="flex flex-col items-center sm:flex-row">
           <div className="text-center sm:w-1/3 sm:pr-8">
             <img
-              alt="Testimonial"
-              src="/owner.png"
+              src="/img/owner.png"
               className="inline-flex items-center justify-center flex-shrink-0 object-cover object-center w-20 h-20 rounded-full"
             />
             <div className="flex flex-col items-center justify-center text-center">
@@ -62,7 +61,7 @@ function Services() {
           {services.map((service, i) => (
             <div className="w-full p-2 md:w-1/2 lg:w-1/3" key={i}>
               <div className="flex items-center h-full p-4 space-x-4 rounded-md bg-neutral-100">
-                <CheckCircleTwoToneIcon className="text-primary-500" />
+                <CheckCircleTwoTone className="text-primary-500" />
                 <span className="text-lg font-medium">{service}</span>
               </div>
             </div>

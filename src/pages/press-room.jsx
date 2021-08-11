@@ -1,13 +1,13 @@
+import WebsiteLayout from '@/components/WebsiteLayout';
+import { operations } from '@/data';
 import React from 'react';
-import Layout from '../components/Layout';
-import { operations } from '../data';
 
 export default function PressRoom() {
   return (
-    <Layout>
+    <WebsiteLayout>
       <Hero />
       <Content />
-    </Layout>
+    </WebsiteLayout>
   );
 }
 

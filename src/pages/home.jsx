@@ -1,17 +1,16 @@
-import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
-import { Button } from '@vechaiui/react';
+import WebsiteLayout from '@/components/WebsiteLayout';
+import { features, testimonials } from '@/data';
+import { FormatQuote } from '@material-ui/icons';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Layout from '../components/Layout';
-import { features, testimonials } from '../data';
 
 export default function Home() {
   return (
-    <Layout>
+    <WebsiteLayout>
       <Hero />
       <Features />
       <Testimonials />
-    </Layout>
+    </WebsiteLayout>
   );
 }
 
@@ -25,14 +24,14 @@ function Hero() {
             Create a professional business card with hiring a designer. Get your personalized design delivered anywhere
             in the world.
           </p>
-          <Link to="/editor">
-            <Button color="primary" variant="solid" size="xl">
-              Start designing for free
-            </Button>
+          <Link
+            to="/maker/new"
+            className="px-5 py-3 text-xl font-medium text-white transition duration-150 rounded-xl bg-primary-500 hover:bg-primary-600 focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 focus:outline-none">
+            Start designing for free
           </Link>
         </div>
         <div className="w-5/6 lg:max-w-lg lg:w-full md:w-1/2">
-          <img src="/illustrations/website-design.png" className="object-cover object-center rounded" alt="Hero" />
+          <img src="/img/website-design.png" className="object-cover rounded" />
         </div>
       </div>
     </section>
@@ -63,7 +62,7 @@ function Features() {
           ))}
         </div>
         <div className="flex items-center justify-center">
-          <img src="/portfolio.jpg" alt="Portfolio" className="object-cover object-center" />
+          <img src="/img/portfolio.jpg" className="object-cover object-center" />
         </div>
       </div>
     </section>
@@ -76,19 +75,15 @@ function Testimonials() {
       <div className="container max-w-screen-xl px-5 py-12 mx-auto">
         <h1 className="mb-12 text-4xl font-bold text-center">Testimonials</h1>
         <div className="flex flex-wrap -m-4">
-          {testimonials.map(({ body, personImage, personName, company }) => (
-            <div className="w-full p-4 md:w-1/2">
+          {testimonials.map(({ body, personImage, personName, company }, i) => (
+            <div className="w-full p-4 md:w-1/2" key={i}>
               <div className="h-full p-8 rounded-lg bg-neutral-50">
                 <div className="mb-2 text-4xl text-primary-500">
-                  <FormatQuoteIcon fontSize="inherit" />
+                  <FormatQuote fontSize="inherit" />
                 </div>
                 <p className="mb-6 italic leading-relaxed text-neutral-700">{body}</p>
                 <a className="inline-flex items-center">
-                  <img
-                    alt="Testimonial"
-                    src={personImage}
-                    className="flex-shrink-0 object-cover object-center w-12 h-12 rounded-full"
-                  />
+                  <img src={personImage} className="flex-shrink-0 object-cover object-center w-12 h-12 rounded-full" />
                   <span className="flex flex-col flex-grow pl-4">
                     <span className="font-medium title-font text-neutral-900">{personName}</span>
                     <span className="text-sm text-neutral-500">{company}</span>

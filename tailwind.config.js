@@ -1,20 +1,16 @@
-const colors = require('tailwindcss/colors');
+const { sky, gray } = require('tailwindcss/colors');
 
 module.exports = {
   mode: 'jit',
   darkMode: 'class',
-  purge: ['./node_modules/@vechaiui/**/*.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}'],
+  purge: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        primary: colors.sky,
+        neutral: gray,
+        primary: sky,
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@vechaiui/core')({
-      colors: ['primary'],
-    }),
-  ],
+  plugins: [require('@tailwindcss/forms')],
 };

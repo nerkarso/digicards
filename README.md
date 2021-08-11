@@ -1,17 +1,23 @@
 <p align="center">
-  <img src="public/favicon.svg" width="96" alt="Icon" />
+  <img src="public/img/icon.svg" width="96" alt="Icon" />
 </p>
 
 <h1 align="center">Digicards</h1>
 
-<p align="center">Generate digital business cards which can be easily shared.</p>
+<p align="center">Design your own digital business cards that can be easily shared.</p>
+
+Project management can be tracked on this [Trello board](https://trello.com/b/euocxOCd/topexcel-trello).
+
+[Website mockup](https://yiu50b.axshare.com) | [Digicard Maker mockup](https://4twccs.axshare.com)
+
+> NOTE: This project is developed by Deakin University masters students alongside industry partners.
 
 ## Stack
 
 - React `17.x`
 - React Admin `3.x`
-- Vechai UI `0.x`
 - Tailwind CSS `2.x`
+- MySQL `8.x`
 
 ## Requirements
 
@@ -20,7 +26,7 @@
 
 ## Getting started
 
-**Install Node.js dependencies**
+1. Install Node.js dependencies:
 
 ```sh
 npm install --legacy-peer-deps

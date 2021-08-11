@@ -1,29 +1,28 @@
-import { VechaiProvider } from '@vechaiui/react';
+import About from '@/pages/about';
+import Home from '@/pages/home';
+import MakerEdit from '@/pages/maker/edit';
+import MakerNew from '@/pages/maker/new';
+import PressRoom from '@/pages/press-room';
+import Signin from '@/pages/signin';
+import Signup from '@/pages/signup';
+import '@/styles/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import './index.css';
-import About from './pages/about';
-import Editor from './pages/editor';
-import Home from './pages/home';
-import Login from './pages/login';
-import PressRoom from './pages/press-room';
-import Signup from './pages/signup';
 
 ReactDOM.render(
   <React.StrictMode>
-    <VechaiProvider>
-      <Router>
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/editor" component={Editor} />
-          <Route path="/about" component={About} />
-          <Route path="/press-room" component={PressRoom} />
-          <Route path="/" component={Home} />
-        </Switch>
-      </Router>
-    </VechaiProvider>
+    <Router>
+      <Switch>
+        <Route path="/signin" component={Signin} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/about" component={About} />
+        <Route path="/press-room" component={PressRoom} />
+        <Route path="/maker/new" component={MakerNew} />
+        <Route path="/maker/:id" component={MakerEdit} />
+        <Route path="/" component={Home} />
+      </Switch>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root'),
 );
