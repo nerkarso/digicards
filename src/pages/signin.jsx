@@ -37,7 +37,7 @@ export default function Signin() {
           </form>
         </div>
         <div className="hidden w-5/6 md:block lg:max-w-lg lg:w-full md:w-1/2">
-          <img src="/img/undraw-authentication.svg" className="object-cover object-center rounded" alt />
+          <img src="/img/undraw-authentication.svg" className="object-cover object-center rounded" />
         </div>
       </main>
       <FooterEnding />

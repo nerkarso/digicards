@@ -1,3 +1,4 @@
+import PageNotFound from '@/pages/404';
 import About from '@/pages/about';
 import Home from '@/pages/home';
 import MakerEdit from '@/pages/maker/edit';
@@ -20,7 +21,8 @@ ReactDOM.render(
         <Route path="/press-room" component={PressRoom} />
         <Route path="/maker/new" component={MakerNew} />
         <Route path="/maker/:id" component={MakerEdit} />
-        <Route path="/" component={Home} />
+        <Route path="/" component={Home} exact />
+        <Route component={PageNotFound} />
       </Switch>
     </Router>
   </React.StrictMode>,

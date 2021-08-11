@@ -12,10 +12,10 @@ export default function MakerNew() {
   }, []);
 
   return (
-    <div className="absolute grid w-full h-full p-6 place-items-center">
-      <div className="flex flex-col items-center justify-center p-4">
-        <img src="/img/undraw-floating.svg" className="mb-8 w-72 animate-pulse" alt />
-        <h1 className="font-medium text-neutral-500">Initializing...</h1>
+    <div className="absolute inset-0 grid place-items-center">
+      <div className="flex flex-col items-center justify-center px-4 py-8 text-center">
+        <img src="/img/undraw-floating.svg" className="mb-8 w-72 animate-pulse" />
+        <h1 className="font-medium text-neutral-600">Initializing...</h1>
       </div>
     </div>
   );
