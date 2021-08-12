@@ -1,5 +1,4 @@
 import WebsiteLayout from '@/components/WebsiteLayout';
-import { operations } from '@/data';
 import React from 'react';
 
 export default function PressRoom() {
@@ -22,6 +21,17 @@ function Hero() {
 }
 
 function Content() {
+  const operations = [
+    {
+      url: 'https://www.youtube-nocookie.com/embed/uufUVRygkhI',
+      title: 'Custom Shaped Letter Press',
+    },
+    {
+      url: 'https://www.youtube-nocookie.com/embed/C-1hGDwmZXI',
+      title: '10 Colour Offset Press',
+    },
+  ];
+
   return (
     <section>
       <div className="container max-w-screen-lg px-5 py-12 mx-auto">

@@ -1,5 +1,4 @@
 import WebsiteLayout from '@/components/WebsiteLayout';
-import { services } from '@/data';
 import { CheckCircleTwoTone } from '@material-ui/icons';
 import React from 'react';
 
@@ -53,6 +52,27 @@ function Mission() {
 }
 
 function Services() {
+  const services = [
+    'With Compliments',
+    'Letter Head',
+    'Business Card',
+    'Envelopes',
+    'Invoice Books',
+    'Notepad',
+    'Flyer',
+    'Presentation Folders',
+    'Raised Print',
+    'Invitation Card',
+    'Postcard',
+    'Booklet',
+    'Catalogue',
+    'Die-cut Sticker',
+    'Letter Cutting',
+    'Window Poster',
+    'Roll-Up Banner',
+    'etc...',
+  ];
+
   return (
     <section>
       <div className="container max-w-screen-lg px-5 py-12 mx-auto">

@@ -1,6 +1,13 @@
 import WebsiteLayout from '@/components/WebsiteLayout';
-import { features, testimonials } from '@/data';
-import { FormatQuote } from '@material-ui/icons';
+import {
+  AspectRatioTwoTone,
+  ChangeHistoryTwoTone,
+  EditTwoTone,
+  FileCopyTwoTone,
+  FormatPaintTwoTone,
+  FormatQuote,
+  InvertColorsTwoTone,
+} from '@material-ui/icons';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -39,6 +46,39 @@ function Hero() {
 }
 
 function Features() {
+  const features = [
+    {
+      icon: InvertColorsTwoTone,
+      title: 'Branding',
+      body: 'Add your logo, brand color palette, fonts, and other visual elements to make your designs consistent and on-brand.',
+    },
+    {
+      icon: FormatPaintTwoTone,
+      title: 'Customizing',
+      body: 'Customize Digicards layouts to suit your style and business brand. Upload your logo, change the text and fonts, add your brand colors in seconds.',
+    },
+    {
+      icon: AspectRatioTwoTone,
+      title: 'Easy Resize',
+      body: 'No need to create another design for different sizes. With Digicards, you can resize your beautiful card into any other preset or custom dimensions in just one click.',
+    },
+    {
+      icon: FileCopyTwoTone,
+      title: 'Templates',
+      body: 'Designing with Digicards is a breeze. We have created hundreds of amazing templates for you to customize for a perfect card.',
+    },
+    {
+      icon: EditTwoTone,
+      title: 'Editing',
+      body: 'Edit your chosen template. Add or remove graphic elements, resize objects, upload your own images, change fonts and more.',
+    },
+    {
+      icon: ChangeHistoryTwoTone,
+      title: 'Shapes, Embeds, and More',
+      body: 'Access a couple free and premium objects, frames, masks, stickers, and icons to create the design you want in seconds.',
+    },
+  ];
+
   return (
     <section>
       <div className="container max-w-screen-xl py-12 mx-auto rounded-xl">
@@ -70,6 +110,33 @@ function Features() {
 }
 
 function Testimonials() {
+  const testimonials = [
+    {
+      body: "It's just amazing. The best on the net! I like Digicards more and more each day because it makes my life a lot easier.",
+      personImage: 'https://randomuser.me/api/portraits/women/76.jpg',
+      personName: 'Josephine Fuller',
+      company: 'CEO, Pineapple Inc.',
+    },
+    {
+      body: "This is simply unbelievable! I'd be lost without Digicards. Digicards is exactly what our business has been lacking.",
+      personImage: 'https://randomuser.me/api/portraits/men/52.jpg',
+      personName: 'David Olson',
+      company: 'Marketing Manager, Avocado LLC.',
+    },
+    {
+      body: 'Digicards is the next killer app. Business cards are the most valuable business resources we have EVER purchased.',
+      personImage: 'https://randomuser.me/api/portraits/men/2.jpg',
+      personName: 'Jeffrey Watkins',
+      company: 'Operations Manager, ACME Studios',
+    },
+    {
+      body: 'Thank you for making it painless, pleasant and most of all hassle free! Digicards is awesome!',
+      personImage: 'https://randomuser.me/api/portraits/women/17.jpg',
+      personName: 'Hailey Boyd',
+      company: 'Marketing Analyst, Peacock Corporation',
+    },
+  ];
+
   return (
     <section>
       <div className="container max-w-screen-xl px-5 py-12 mx-auto">
