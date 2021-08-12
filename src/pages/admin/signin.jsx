@@ -1,7 +1,6 @@
 import FooterEnding from '@/components/FooterEnding';
 import { Button, Input } from '@/elements';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export default function Signin() {
   const onSubmit = (e) => {
@@ -27,13 +26,13 @@ export default function Signin() {
             </div>
             <p className="mb-2 text-neutral-600">
               Don't have an account yet?{' '}
-              <Link to="/signup" className="link">
+              <a href="/signup" className="link">
                 Create account
-              </Link>
+              </a>
             </p>
-            <Link to="/" className="link">
+            <a href="/" className="link">
               Back to home
-            </Link>
+            </a>
           </form>
         </div>
         <div className="hidden w-5/6 md:block lg:max-w-lg lg:w-full md:w-1/2">

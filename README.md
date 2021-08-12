@@ -34,6 +34,13 @@ npm install --legacy-peer-deps
 yarn
 ```
 
+2. Create a new file called **.env.local** and add the following: 
+
+```sh
+VITE_API_BASE_URL=<SERVER_URL>/api
+# Replace <SERVER_URL> with the URL of the API server, eg. http://localhost:3001
+```
+
 ## Development
 
 **Start the local development server**
