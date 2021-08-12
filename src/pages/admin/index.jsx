@@ -1,5 +1,6 @@
 import Dashboard from '@/pages/admin/dashboard';
 import Signin from '@/pages/admin/signin';
+import users from '@/pages/admin/users';
 import { blue } from '@material-ui/core/colors';
 import simpleRestProvider from 'ra-data-simple-rest';
 import React from 'react';
@@ -32,6 +33,8 @@ export default function Admin() {
       dashboard={Dashboard}
       loginPage={Signin}
       dataProvider={dataProvider}
-      disableTelemetry></ReactAdmin>
+      disableTelemetry>
+      <Resource name="users" {...users} />
+    </ReactAdmin>
   );
 }
