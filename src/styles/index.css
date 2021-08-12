@@ -19,6 +19,7 @@ body .MuiAppBar-root {
 
 /* Drawer */
 body .MuiDrawer-root {
+  inset: auto !important;
   @apply bg-white border-r;
 }
 
@@ -34,7 +35,12 @@ body .MuiMenu-paper {
 
 /* Main Content */
 body #main-content {
-  @apply relative px-6;
+  @apply relative;
+}
+@screen sm {
+  body #main-content {
+    @apply px-6;
+  }
 }
 
 /* Input */

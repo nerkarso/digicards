@@ -1,7 +1,8 @@
 import ResourceTitle from '@/components/ResourceTitle';
+import { useMediaQuery } from '@material-ui/core';
 import { CreditCard } from '@material-ui/icons';
 import React from 'react';
-import { Datagrid, DateField, Edit, List, SimpleForm, TextField, TextInput } from 'react-admin';
+import { Datagrid, DateField, Edit, List, SimpleForm, SimpleList, TextField, TextInput } from 'react-admin';
 
 const cards = {
   list: CardList,
@@ -12,15 +13,23 @@ const cards = {
 export default cards;
 
 function CardList(props) {
+  const isSmall = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const filters = [<TextInput label="Search" source="q" alwaysOn />];
 
   return (
     <List filters={filters} exporter={false} {...props}>
-      <Datagrid rowClick="edit">
-        <TextField source="title" />
-        <DateField source="createdAt" />
-        <DateField source="updatedAt" />
-      </Datagrid>
+      {isSmall ? (
+        <SimpleList
+          primaryText={(record) => record.title}
+          tertiaryText={(record) => new Date(record.createdAt).toLocaleDateString()}
+        />
+      ) : (
+        <Datagrid rowClick="edit">
+          <TextField source="title" />
+          <DateField source="createdAt" />
+          <DateField source="updatedAt" />
+        </Datagrid>
+      )}
     </List>
   );
 }

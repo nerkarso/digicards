@@ -1,7 +1,8 @@
 import ResourceTitle from '@/components/ResourceTitle';
+import { Avatar, useMediaQuery } from '@material-ui/core';
 import { PeopleAlt } from '@material-ui/icons';
 import React from 'react';
-import { Datagrid, DateField, Edit, EmailField, List, SimpleForm, TextField, TextInput } from 'react-admin';
+import { Datagrid, DateField, Edit, EmailField, List, SimpleForm, SimpleList, TextField, TextInput } from 'react-admin';
 
 const users = {
   list: UserList,
@@ -12,18 +13,28 @@ const users = {
 export default users;
 
 function UserList(props) {
+  const isSmall = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const filters = [<TextInput label="Search" source="q" alwaysOn />];
 
   return (
     <List filters={filters} exporter={false} {...props}>
-      <Datagrid rowClick="edit">
-        <AvatarField />
-        <TextField source="firstName" />
-        <TextField source="lastName" />
-        <EmailField source="email" />
-        <TextField source="role" />
-        <DateField source="createdAt" />
-      </Datagrid>
+      {isSmall ? (
+        <SimpleList
+          leftAvatar={(record) => <Avatar src={record.image} />}
+          primaryText={(record) => record.firstName}
+          secondaryText={(record) => record.email}
+          tertiaryText={(record) => record.role}
+        />
+      ) : (
+        <Datagrid rowClick="edit">
+          <AvatarField />
+          <TextField source="firstName" />
+          <TextField source="lastName" />
+          <EmailField source="email" />
+          <TextField source="role" />
+          <DateField source="createdAt" />
+        </Datagrid>
+      )}
     </List>
   );
 }
@@ -53,7 +64,7 @@ function UserTitle({ record }) {
 
 function AvatarField({ record }) {
   return (
-    <div className="w-8 h-8 overflow-hidden border rounded-full">
+    <div className="w-8 h-8 overflow-hidden rounded-full">
       {record.image ? (
         <img src={record.image} className="object-cover" />
       ) : (
