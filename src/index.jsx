@@ -16,6 +16,7 @@ ReactDOM.render(
     <Router>
       <Switch>
         <Redirect from="/signin" to="/admin/#/login" />
+        <Redirect from="/profile" to="/admin/#/profile" />
         <Route path="/signup" component={Signup} />
         <Route path="/about" component={About} />
         <Route path="/press-room" component={PressRoom} />
