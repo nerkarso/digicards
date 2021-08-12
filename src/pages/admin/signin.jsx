@@ -1,23 +1,44 @@
 import FooterEnding from '@/components/FooterEnding';
 import { Button, Input } from '@/elements';
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 
 export default function Signin() {
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const history = useHistory();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    history.replace({
+      pathname: '/',
+      state: {
+        user: data,
+      },
+    });
   };
 
   return (
     <div className="absolute inset-0 flex flex-col w-full h-full overflow-y-auto">
-      <main className="container flex flex-col items-center flex-grow max-w-screen-xl px-5 py-12 mx-auto md:flex-row">
-        <div className="flex flex-col items-center mb-16 text-center lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 md:items-start md:text-left md:mb-0">
-          <form onSubmit={onSubmit} className="w-full mx-auto md:p-6 md:max-w-sm">
+      <main className="container flex-col items-center flex-grow px-5 py-12 mx-auto md:flex md:max-w-screen-xl md:flex-row">
+        <div className="flex flex-col items-center mb-16 lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 md:items-start md:text-left md:mb-0">
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full mx-auto md:p-6 md:max-w-sm">
             <h1 className="mb-10 text-3xl font-bold text-center">Welcome back</h1>
             <div className="mb-4">
-              <Input type="email" className="w-full" placeholder="Email address" />
+              <Input label="Email" type="email" className="w-full" {...register('email', { required: true })} />
+              {errors.email && <span className="mt-1 text-sm text-red-500">Email is required</span>}
             </div>
             <div className="mb-6">
-              <Input type="password" className="w-full" placeholder="Password" />
+              <Input
+                label="Password"
+                type="password"
+                className="w-full"
+                {...register('password', { required: true })}
+              />
+              {errors.password && <span className="mt-1 text-sm text-red-500">Password is required</span>}
             </div>
             <div className="mb-4">
               <Button type="submit" color="primary" className="w-full">
