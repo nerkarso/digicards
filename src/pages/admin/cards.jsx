@@ -2,10 +2,24 @@ import ResourceTitle from '@/components/ResourceTitle';
 import { useMediaQuery } from '@material-ui/core';
 import { CreditCard } from '@material-ui/icons';
 import React from 'react';
-import { Datagrid, DateField, Edit, List, SimpleForm, SimpleList, TextField, TextInput } from 'react-admin';
+import {
+  Create,
+  Datagrid,
+  DateField,
+  DateTimeInput,
+  Edit,
+  List,
+  SimpleForm,
+  SimpleList,
+  TextField,
+  TextInput,
+} from 'react-admin';
+import { useHistory } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 const cards = {
   list: CardList,
+  create: CardCreate,
   edit: CardEdit,
   icon: CreditCard,
 };
@@ -31,6 +45,28 @@ function CardList(props) {
         </Datagrid>
       )}
     </List>
+  );
+}
+
+function CardCreate(props) {
+  const history = useHistory();
+
+  return (
+    <Create
+      onSuccess={() => {
+        alert('Card has been created');
+        setTimeout(() => {
+          history.push('/cards');
+        }, 1000);
+      }}
+      {...props}>
+      <SimpleForm>
+        <TextInput source="id" defaultValue={uuidv4()} disabled fullWidth />
+        <TextInput source="title" fullWidth />
+        <DateTimeInput source="createdAt" fullWidth />
+        <DateTimeInput source="updatedAt" fullWidth />
+      </SimpleForm>
+    </Create>
   );
 }
 
