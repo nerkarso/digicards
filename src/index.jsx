@@ -1,3 +1,4 @@
+import Storage from '@/components/Storage';
 import PageNotFound from '@/pages/404';
 import About from '@/pages/about';
 import Admin from '@/pages/admin';
@@ -13,20 +14,22 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Switch>
-        <Redirect from="/signin" to="/admin/#/login" />
-        <Redirect from="/profile" to="/admin/#/profile" />
-        <Route path="/signup" component={Signup} />
-        <Route path="/about" component={About} />
-        <Route path="/press-room" component={PressRoom} />
-        <Route path="/maker/new" component={MakerNew} />
-        <Route path="/maker/:id" component={MakerEdit} />
-        <Route path="/admin" component={Admin} />
-        <Route path="/" component={Home} exact />
-        <Route component={PageNotFound} />
-      </Switch>
-    </Router>
+    <Storage>
+      <Router>
+        <Switch>
+          <Redirect from="/signin" to="/admin/#/login" />
+          <Redirect from="/profile" to="/admin/#/profile" />
+          <Route path="/signup" component={Signup} />
+          <Route path="/about" component={About} />
+          <Route path="/press-room" component={PressRoom} />
+          <Route path="/maker/new" component={MakerNew} />
+          <Route path="/maker/:id" component={MakerEdit} />
+          <Route path="/admin" component={Admin} />
+          <Route path="/" component={Home} exact />
+          <Route component={PageNotFound} />
+        </Switch>
+      </Router>
+    </Storage>
   </React.StrictMode>,
   document.getElementById('root'),
 );

@@ -13,12 +13,30 @@ export default function Signin() {
   } = useForm();
 
   const onSubmit = (data) => {
-    history.replace({
-      pathname: '/',
-      state: {
-        user: data,
-      },
-    });
+    let db = window.localStorage.getItem('ra-data-local-storage');
+    if (db) {
+      db = JSON.parse(db);
+      let matched = false;
+      // Find the matching email and password
+      console.log(data);
+      db.users.forEach((user) => {
+        console.log(user);
+        if (user.email === data.email && user.password === data.password) {
+          matched = true;
+        }
+      });
+      // Check if there is a match found
+      if (matched) {
+        history.replace({
+          pathname: '/',
+          state: {
+            user: data,
+          },
+        });
+      } else {
+        alert('Incorrect email or password');
+      }
+    }
   };
 
   return (

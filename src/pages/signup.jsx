@@ -3,6 +3,7 @@ import { Button, Checkbox, Input } from '@/elements';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Signup() {
   const history = useHistory();
@@ -12,11 +13,31 @@ export default function Signup() {
     formState: { errors },
   } = useForm();
 
+  const handleCreateUser = (data) => {
+    let db = window.localStorage.getItem('ra-data-local-storage');
+    if (db) {
+      db = JSON.parse(db);
+      db.users.push({
+        id: uuidv4(),
+        firstName: data.firstName,
+        lastName: data.lastName,
+        image: null,
+        email: data.email,
+        password: data.password,
+        role: 'customer',
+        createdAt: new Date().toISOString(),
+      });
+      // Save data to local storage
+      window.localStorage.setItem('ra-data-local-storage', JSON.stringify(db));
+    }
+    history.push('/signin');
+  };
+
   const onSubmit = (data) => {
     if (data.password !== data.confirmPassword) {
       alert('Passwords do not match');
     } else {
-      history.push('/signin');
+      handleCreateUser(data);
     }
   };
 
