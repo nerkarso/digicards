@@ -62,7 +62,7 @@
             <h4>serena@gmail.com</h4>
           </div>
           <div class="mb-4">
-            <button type="button" class="h-10 px-4 font-medium text-white transition duration-150 bg-red-500 rounded-lg hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:outline-none">Delete account</button>
+            <button type="button" id="btnDelete" class="h-10 px-4 font-medium text-white transition duration-150 bg-red-500 rounded-lg hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:outline-none">Delete account</button>
           </div>
         </div>
       </div>
@@ -70,6 +70,25 @@
     <!-- End Main -->
 
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.all.min.js"></script>
     <script src="/js/main.js"></script>
+    <script>
+      const btnDelete = document.getElementById('btnDelete');
+      btnDelete.onclick = (event) => {
+        Swal.fire({
+          text: 'Do you really want to delete your account?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Delete',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              text: 'Your account has been deleted.',
+              icon: 'success',
+            });
+          }
+        });
+      };
+    </script>
   </body>
 </html>
