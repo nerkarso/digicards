@@ -8,55 +8,45 @@
 
 Project management can be tracked on this [Trello board](https://trello.com/b/euocxOCd/topexcel-trello).
 
-[Website mockup](https://yiu50b.axshare.com) | [Digicard Maker mockup](https://4twccs.axshare.com)
+[Website mockup](https://yiu50b.axshare.com) | [Designer mockup](https://4twccs.axshare.com)
 
 > NOTE: This project is developed by Deakin University masters students alongside industry partners.
 
 ## Stack
 
-- React `17.x`
-- React Admin `3.x`
 - Tailwind CSS `2.x`
 - MySQL `8.x`
 
 ## Requirements
 
 - Node.js `14.x`
-- Vite `2.x`
 
 ## Getting started
 
-1. Install Node.js dependencies:
+1. Clone the repository:
 
 ```sh
-npm install --legacy-peer-deps
-# or
-yarn
+git clone <URL>
 ```
 
-2. Create a new file called **.env.local** and add the following: 
+2. Install Node.js dependencies:
 
 ```sh
-VITE_API_BASE_URL=<SERVER_URL>/api
-# Replace <SERVER_URL> with the URL of the API server, eg. http://localhost:3001
+npm install
 ```
 
 ## Development
 
-**Start the local development server**
+**Start the web server for development**
 
 ```sh
-npm start
-# or
-yarn dev
+npm run dev
 ```
 
 ## Deployment
 
-**Build the app for production**
+**Start the web server**
 
 ```sh
-npm run build
-# or
-yarn build
+npm start
 ```
