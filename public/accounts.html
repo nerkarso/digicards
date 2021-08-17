@@ -20,12 +20,14 @@
         <div class="flex-shrink-0">
           <img class="w-8 h-8" src="/img/icon.svg" />
         </div>
-        <div class="flex h-full ml-10 space-x-8 overflow-x-auto">
+        <div class="flex h-full ml-8 mr-4 space-x-4 sm:space-x-8">
           <a href="/designs.html" class="flex items-center h-full px-1 font-medium text-gray-500 transition duration-150 border-b-2 border-transparent hover:text-blue-500">Designs</a>
           <a href="/accounts.html" class="flex items-center h-full px-1 font-medium transition duration-150 border-b-2 border-blue-500 hover:text-blue-500">Accounts</a>
-          <a href="/account.html" class="flex items-center h-full px-1 font-medium text-gray-500 transition duration-150 border-b-2 border-transparent hover:text-blue-500">Account</a>
         </div>
-        <div class="flex-shrink-0 ml-auto">
+        <div class="flex flex-shrink-0 h-full ml-auto">
+          <a href="/account.html" class="flex items-center h-full px-1 font-medium text-gray-500 transition duration-150 border-b-2 border-transparent hover:text-blue-500">My account</a>
+        </div>
+        <div class="flex-shrink-0 pl-8 pr-4 sm:pr-0">
           <a href="/signin.html" class="flex items-center justify-center h-10 px-4 font-medium text-white transition duration-150 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none">Sign out</a>
         </div>
       </div>
@@ -42,14 +44,14 @@
     <main class="px-4 mx-auto by-6 max-w-7xl">
       <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+          <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <div class="overflow-hidden">
               <table class="min-w-full divide-y divide-gray-200">
                 <thead>
                   <tr>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                    <th class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Name</th>
+                    <th class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Email</th>
+                    <th class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Role</th>
                     <th class="relative px-4 py-3"></th>
                   </tr>
                 </thead>
@@ -57,15 +59,15 @@
                   <tr>
                     <td class="p-4 whitespace-nowrap">
                       <div class="flex items-center">
-                        <div class="flex-shrink-0 h-12 w-12">
+                        <div class="flex-shrink-0 w-12 h-12">
                           <img class="object-contain object-center rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" />
                         </div>
                         <div class="ml-4 font-medium">Jane Cooper</div>
                       </div>
                     </td>
                     <td class="p-4 whitespace-nowrap">jane.cooper@example.com</td>
-                    <td class="p-4 whitespace-nowrap text-gray-500">Customer</td>
-                    <td class="p-4 whitespace-nowrap text-right">
+                    <td class="p-4 text-gray-500 whitespace-nowrap">Customer</td>
+                    <td class="p-4 text-right whitespace-nowrap">
                       <button type="buttin" class="font-medium text-red-600 hover:text-red-700">Delete</button>
                     </td>
                   </tr>
