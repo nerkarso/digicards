@@ -17,7 +17,7 @@ async function createServer() {
   app.use(express.json());
 
   // Serve the static files from the public folder
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.resolve(__dirname, '..', 'public')));
 
   // Establish a connection with the database
   const connection = await createConnection();
@@ -26,6 +26,7 @@ async function createServer() {
   if (connection) {
     // Routes
     app.use('/api/designs', require('./design.controller'));
+    app.use('/api/accounts', require('./account.controller'));
   }
 
   // Start the Express server
