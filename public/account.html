@@ -62,12 +62,46 @@
             <h4>serena@gmail.com</h4>
           </div>
           <div class="mb-4">
+            <button type="button" onclick="openModalEdit()" class="h-10 px-4 mr-2 font-medium text-white transition duration-150 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none">Edit details</button>
             <button type="button" id="btnDelete" class="h-10 px-4 font-medium text-white transition duration-150 bg-red-500 rounded-lg hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:outline-none">Delete account</button>
           </div>
         </div>
       </div>
     </main>
     <!-- End Main -->
+
+    <!-- Start Modal -->
+    <div id="modalEdit" class="fixed inset-0 z-10 hidden overflow-y-auto transition-opacity duration-200 opacity-0" role="dialog">
+      <div class="grid h-full place-items-center">
+        <div onclick="closeModalEdit()" class="fixed inset-0 bg-black bg-opacity-50"></div>
+        <form class="relative w-full max-w-lg overflow-hidden rounded-lg">
+          <div class="p-4 bg-white">
+            <h1 class="mb-6 text-2xl font-bold">Edit details</h1>
+            <div class="relative mb-6">
+              <input id="first-name" placeholder="First name" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="text" name="firstName" />
+              <label for="first-name" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">First name</label>
+            </div>
+            <div class="relative mb-6">
+              <input id="last-name" placeholder="Last name" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="text" name="lastName" />
+              <label for="last-name" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Last name</label>
+            </div>
+            <div class="relative mb-6">
+              <input id="email" placeholder="Email" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="email" name="email" />
+              <label for="email" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Email</label>
+            </div>
+            <div class="relative">
+              <input id="password" placeholder="Password" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="password" name="password" />
+              <label for="password" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Password</label>
+            </div>
+          </div>
+          <div class="p-4 bg-gray-50">
+            <button type="button" onclick="closeModalEdit()" class="h-10 px-4 mr-2 font-medium text-white transition duration-150 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none">Update</button>
+            <button type="button" onclick="closeModalEdit()" class="h-10 px-4 font-medium text-gray-800 transition duration-150 bg-gray-200 rounded-lg hover:bg-gray-300 focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 focus:outline-none">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- End Modal -->
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.all.min.js"></script>
@@ -89,6 +123,16 @@
           }
         });
       };
+
+      const modalEdit = document.getElementById('modalEdit');
+      function openModalEdit() {
+        modalEdit.classList.remove('hidden');
+        setTimeout(() => modalEdit.classList.add('opacity-100'));
+      }
+      function closeModalEdit() {
+        modalEdit.classList.remove('opacity-100');
+        setTimeout(() => modalEdit.classList.add('hidden'), 200);
+      }
     </script>
   </body>
 </html>
