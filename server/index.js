@@ -1,14 +1,36 @@
-const path = require('path');
-const express = require('express');
+// Load the environment variables
+require('dotenv').config();
 
-function createServer() {
+const cors = require('cors');
+const express = require('express');
+const path = require('path');
+const { createConnection } = require('./database');
+
+async function createServer() {
+  // Creat a new Express instance
   const app = express();
 
-  // Server the static files from the public folder
+  // Enable CORS
+  app.use(cors());
+
+  // Parses JSON body
+  app.use(express.json());
+
+  // Serve the static files from the public folder
   app.use(express.static(path.join(__dirname, 'public')));
 
-  // Start the Express web server
-  app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+  // Establish a connection with the database
+  const connection = await createConnection();
+
+  // Check if there is a database connection
+  if (connection) {
+    // Routes
+    app.use('/api/designs', require('./design.controller'));
+  }
+
+  // Start the Express server
+  await app.listen(3000);
+  console.log('[Express] Server running on http://localhost:3000');
 }
 
 createServer();
