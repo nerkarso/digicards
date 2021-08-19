@@ -14,12 +14,15 @@ Project management can be tracked on this [Trello board](https://trello.com/b/eu
 
 ## Stack
 
+- React `17.x`
 - Tailwind CSS `2.x`
+- Express `4.x`
 - MySQL `8.x`
 
 ## Requirements
 
 - Node.js `14.x`
+- Parcel `1.x`
 
 ## Getting started
 
@@ -35,18 +38,50 @@ git clone <URL>
 npm install
 ```
 
+3. Create a `.env` file and add the following:
+
+```sh
+DB_HOST=
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+POLOTNO_API_KEY=
+```
+
+You can get the `POLOTNO_API_KEY` from [https://polotno.dev/cabinet](https://polotno.dev/cabinet).
+
 ## Development
 
-**Start the web server for development**
+**Start the design editor development server**
+
+```sh
+npm run editor
+```
+
+Open [http://localhost:1234](http://localhost:1234) in your browser.
+
+**Start the development web server**
 
 ```sh
 npm run dev
 ```
 
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
 ## Deployment
+
+**Build the design editor app**
+
+```sh
+npm run build
+```
+
+Output will be in the **/editor/dist** folder.
 
 **Start the web server**
 
 ```sh
 npm start
 ```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.

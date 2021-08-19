@@ -18,6 +18,12 @@ async function createServer() {
 
   // Serve the static files from the public folder
   app.use(express.static(path.resolve(__dirname, '..', 'public')));
+  app.use(express.static(path.resolve(__dirname, '..', 'editor', 'dist')));
+
+  // Design editor
+  app.get('/editor', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '..', 'editor', 'dist', 'index.html'));
+  });
 
   // Establish a connection with the database
   const connection = await createConnection();
