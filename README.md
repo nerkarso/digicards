@@ -38,17 +38,27 @@ git clone <URL>
 npm install
 ```
 
-3. Create a `.env` file and add the following:
+3. Create a database with the name **digicards**.
+
+4. Import the database:
 
 ```sh
-DB_HOST=
-DB_USER=
+mysql -u root -p digicards < digicards.sql
+```
+
+5. Create a `.env` file and add the following:
+
+```sh
+DB_HOST=localhost
+DB_USER=root
 DB_PASSWORD=
-DB_NAME=
+DB_NAME=digicards
 POLOTNO_API_KEY=
 ```
 
-You can get the `POLOTNO_API_KEY` from [https://polotno.dev/cabinet](https://polotno.dev/cabinet).
+> Change the database credentials depending on your environment.
+
+You can get the `POLOTNO_API_KEY` from [https://polotno.dev/cabinet](https://polotno.dev/cabinet) after creating an account.
 
 ## Development
 

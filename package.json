@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "server/index.js",
   "scripts": {
-    "dev": "nodemon server",
-    "start": "node server",
+    "dev": "nodemon server/index.js",
+    "start": "node server/index.js",
     "editor": "parcel editor/index.html -d editor/dist --no-source-maps --no-cache",
     "build": "parcel build editor/index.html -d editor/dist --no-source-maps --no-cache",
     "postinstall": "patch-package"
