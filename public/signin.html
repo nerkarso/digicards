@@ -22,18 +22,18 @@
             <h1 class="mb-10 text-3xl font-bold text-center">Welcome back</h1>
             <div class="mb-6">
               <div class="relative">
-                <input id="email" placeholder="Email" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="email" name="email" />
+                <input type="email" id="email" placeholder="Email" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" required />
                 <label for="email" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Email</label>
               </div>
             </div>
             <div class="mb-6">
               <div class="relative">
-                <input id="password" placeholder="Password" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="password" name="password" />
+                <input type="password" id="password" placeholder="Password" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" required />
                 <label for="password" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Password</label>
               </div>
             </div>
             <div class="mb-4">
-              <button class="w-full h-10 px-4 font-medium text-white transition duration-150 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none" type="submit" color="blue">Sign in</button>
+              <button type="submit" class="w-full h-10 px-4 font-medium text-white transition duration-150 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none">Sign in</button>
             </div>
             <p class="mb-2 text-gray-600">
               Don't have an account yet?
@@ -67,14 +67,51 @@
     </div>
 
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.all.min.js"></script>
+    <script src="/js/main.js"></script>
     <script>
-      const form = document.getElementById('form');
-      form.onsubmit = (event) => {
+      /**
+       * Handle form submission
+       */
+      document.getElementById('form').onsubmit = (event) => {
         // Disable page refresh
         event.preventDefault();
-        window.location = '/designs.html';
+
+        // Fields
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+
+        // Send AJAX request to server
+        fetch('/api/accounts/auth', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email.value,
+            password: password.value,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            // Check for errors
+            if (data.error) {
+              Swal.fire({
+                icon: 'error',
+                text: data.error,
+              });
+            } else {
+              // Redirect to designs page
+              window.location = '/designs.html';
+            }
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: 'error',
+              text: error.message,
+            });
+          });
       };
     </script>
-    <script src="/js/main.js"></script>
   </body>
 </html>
