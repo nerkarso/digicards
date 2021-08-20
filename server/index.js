@@ -26,14 +26,11 @@ async function createServer() {
   });
 
   // Establish a connection with the database
-  const connection = await createConnection();
+  app.use(createConnection);
 
-  // Check if there is a database connection
-  if (connection) {
-    // Routes
-    app.use('/api/designs', require('./design.controller'));
-    app.use('/api/accounts', require('./account.controller'));
-  }
+  // Routes
+  app.use('/api/designs', require('./design.controller'));
+  app.use('/api/accounts', require('./account.controller'));
 
   // Start the Express server
   await app.listen(3000);

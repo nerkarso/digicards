@@ -1,13 +1,13 @@
 const { createConnection } = require('mysql2/promise');
 
 /**
- * Establish a connection with the database
- *
- * @returns connection | null
+ * Middleware to establish a connection with the database
  */
-exports.createConnection = async function () {
+exports.createConnection = async function (req, res, next) {
+  res.db = null;
   try {
-    const connection = await createConnection({
+    // Pass the connection
+    res.db = await createConnection({
       host: process.env.DB_HOST,
       port: 3306,
       user: process.env.DB_USER,
@@ -15,9 +15,8 @@ exports.createConnection = async function () {
       database: process.env.DB_NAME,
     });
     console.log('[Database] Connection established');
-    return connection;
   } catch (error) {
     console.error('[Database] Error: ', error.message);
-    return null;
   }
+  next();
 };
