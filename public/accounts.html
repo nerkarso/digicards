@@ -55,23 +55,7 @@
                     <th class="relative px-4 py-3"></th>
                   </tr>
                 </thead>
-                <tbody id="accounts" class="bg-white divide-y divide-gray-200">
-                  <tr>
-                    <td class="p-4 whitespace-nowrap">
-                      <div class="flex items-center">
-                        <div class="flex-shrink-0 w-12 h-12">
-                          <img class="object-contain object-center rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" />
-                        </div>
-                        <div class="ml-4 font-medium">Jane Cooper</div>
-                      </div>
-                    </td>
-                    <td class="p-4 whitespace-nowrap">jane.cooper@example.com</td>
-                    <td class="p-4 text-gray-500 whitespace-nowrap">Customer</td>
-                    <td class="p-4 text-right whitespace-nowrap">
-                      <button type="button" class="h-10 px-4 font-medium text-white transition duration-150 bg-red-500 rounded-lg btnDelete hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:outline-none">Delete</button>
-                    </td>
-                  </tr>
-                </tbody>
+                <tbody id="accounts" class="bg-white divide-y divide-gray-200"></tbody>
               </table>
             </div>
           </div>
@@ -84,24 +68,123 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.all.min.js"></script>
     <script src="/js/main.js"></script>
     <script>
-      const accounts = document.getElementById('accounts');
-      accounts.onclick = (event) => {
-        if (event.target.closest('.btnDelete')) {
-          Swal.fire({
-            text: 'Do you really want to delete this?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Delete',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire({
-                text: 'Account has been deleted.',
-                icon: 'success',
+      /**
+       * Handles deleting an account
+       */
+      function handleDelete(id) {
+        Swal.fire({
+          text: 'Do you really want to delete this?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Delete',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Send AJAX request to server
+            fetch(`/api/accounts/${id}`, {
+              method: 'DELETE',
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                // Check for errors
+                if (data.error) {
+                  Swal.fire({
+                    icon: 'error',
+                    text: data.error,
+                  });
+                } else {
+                  // Success
+                  Swal.fire({
+                    icon: 'success',
+                    text: 'Account has been deleted',
+                  });
+                  // Get fresh rows from the database
+                  getRows();
+                }
+              })
+              .catch((error) => {
+                // Error
+                Swal.fire({
+                  icon: 'error',
+                  text: error.message,
+                });
               });
-            }
-          });
+          }
+        });
+      }
+
+      /**
+       * Render the rows in the table
+       */
+      function renderRows(rows) {
+        const accounts = document.getElementById('accounts');
+
+        // Check if there are any rows
+        if (rows.length > 0) {
+          accounts.innerHTML = rows
+            .map((row) => {
+              return `
+              <tr>
+                <td class="px-4 py-2 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 w-12 h-12">
+                      <img class="object-cover object-center rounded-full" src="${row.image_url || 'https://dummyimage.com/48x48'}" />
+                    </div>
+                    <div class="ml-4 font-medium">${row.first_name} ${row.last_name}</div>
+                  </div>
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">${row.email}</td>
+                <td class="px-4 py-2 text-gray-500 whitespace-nowrap">
+                  <span class="py-1 px-2 text-xs font-semibold rounded-md bg-green-100 text-green-800">${row.role === 0 ? 'Admin' : 'Customer'}</span>
+                </td>
+                <td class="px-4 py-2 text-right whitespace-nowrap">
+                  <button type="button" onclick="handleDelete(${row.id})" class="h-10 px-4 font-medium text-white transition duration-150 bg-red-500 rounded-lg hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:outline-none">Delete</button>
+                </td>
+              </tr>
+            `;
+            })
+            .join('');
+        } else {
+          // Show empty state
+          accounts.innerHTML = `
+            <tr>
+              <td class="text-gray-500 text-center py-8 px-4" colspan="4">
+                <img src="/img/undraw-floating.svg" class="mb-8 w-64 mx-auto" />
+                <h1 class="text-gray-500">No rows found</h1>
+              </td>
+            </tr>
+          `;
         }
-      };
+      }
+
+      /**
+       * Get rows from the database
+       */
+      function getRows() {
+        // Send AJAX request to server
+        fetch('/api/accounts')
+          .then((res) => res.json())
+          .then((data) => {
+            // Check for errors
+            if (data.error) {
+              Swal.fire({
+                icon: 'error',
+                text: data.error,
+              });
+            } else {
+              // Show the rows in the table
+              renderRows(data);
+            }
+          })
+          .catch((error) => {
+            // Error
+            Swal.fire({
+              icon: 'error',
+              text: error.message,
+            });
+          });
+      }
+
+      getRows();
     </script>
   </body>
 </html>
