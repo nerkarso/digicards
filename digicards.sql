@@ -26,7 +26,7 @@ CREATE TABLE `accounts` (
 CREATE TABLE `designs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uuid` varchar(100) NOT NULL,
-  `title` varchar(200) NOT NULL DEFAULT 'Untitled',
+  `title` varchar(200) DEFAULT 'Untitled',
   `data` longtext,
   `thumbnail` blob,
   `account_id` int(11),
