@@ -15,6 +15,9 @@ function getSignedInAccount() {
   return account;
 }
 
+// Store globally
+window.getSignedInAccount = getSignedInAccount;
+
 /**
  * Handles signing out the account
  */

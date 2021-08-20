@@ -14,7 +14,7 @@ async function createServer() {
   app.use(cors());
 
   // Middleware for parsing application/json
-  app.use(express.json());
+  app.use(express.json({ limit: '100mb' }));
   // Middleware for parsing application/x-www-form-urlencoded
   app.use(express.urlencoded({ extended: true }));
 
@@ -23,7 +23,7 @@ async function createServer() {
   app.use(express.static(path.resolve(__dirname, '..', 'editor', 'dist')));
 
   // Design editor
-  app.get('/editor', (req, res) => {
+  app.get('/editor*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'editor', 'dist', 'index.html'));
   });
 
