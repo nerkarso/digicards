@@ -1,48 +1,165 @@
 const { Router } = require('express');
-
-// Map the routes
 const router = Router();
-router.route('/').get(findAll).post(create);
-router.route('/:id').get(findOne).put(update).delete(remove);
 
 /**
  * Get all the rows
+ *
+ * GET /api/accounts
  */
-async function findAll(req, res) {
-  res.json([]);
-}
+router.get('/', async function findAll(req, res) {
+  try {
+    // Query the database
+    const [rows] = await res.db.query('SELECT * FROM accounts');
+    // Success
+    res.json(rows);
+  } catch (error) {
+    // Error
+    res.json({
+      error: error.message,
+    });
+  }
+});
 
 /**
  * Create a new row
+ *
+ * POST /api/accounts
  */
-async function create(req, res) {
-  const body = req.body;
-  res.json({ body });
-}
+router.post('/', async function create(req, res) {
+  const { first_name, last_name, email, password } = req.body;
+  try {
+    // Query the database
+    const [result] = await res.db.query(
+      `
+      INSERT INTO accounts
+        (first_name, last_name, email, password, role)
+      VALUES
+        (?, ?, ?, ?, ?)
+    `,
+      [first_name, last_name, email, password, 1],
+    );
+    // Success
+    res.json({
+      rows_inserted: result.affectedRows,
+    });
+  } catch (error) {
+    // Error
+    res.json({
+      error: error.message,
+    });
+  }
+});
 
 /**
  * Get a row
+ *
+ * GET /api/accounts/1
  */
-async function findOne(req, res) {
+router.get('/:id', async function findOne(req, res) {
   const { id } = req.params;
-  res.json({ id });
-}
+  try {
+    // Query the database
+    const [rows] = await res.db.query('SELECT * FROM accounts WHERE id = ?', [id]);
+    // Check if there are rows
+    if (rows.length > 0) {
+      // Success
+      res.json(rows[0]);
+    } else {
+      res.json({
+        error: 'No rows found',
+      });
+    }
+  } catch (error) {
+    // Error
+    res.json({
+      error: error.message,
+    });
+  }
+});
 
 /**
  * Update a row
+ *
+ * PUT /api/accounts/1
  */
-async function update(req, res) {
+router.put('/:id', async function update(req, res) {
   const { id } = req.params;
-  const body = req.body;
-  res.json({ id, body });
-}
+  const { first_name, last_name, email, password } = req.body;
+  try {
+    // Query the database
+    const [result] = await res.db.query(
+      `
+      UPDATE accounts
+      SET first_name = ?, last_name = ?, email = ?, password = ?
+      WHERE id = ?
+    `,
+      [first_name, last_name, email, password, id],
+    );
+    // Success
+    res.json({
+      rows_updated: result.affectedRows,
+    });
+  } catch (error) {
+    // Error
+    res.json({
+      error: error.message,
+    });
+  }
+});
 
 /**
  * Delete a row
+ *
+ * DELETE /api/accounts/1
  */
-async function remove(req, res) {
+router.delete('/:id', async function remove(req, res) {
   const { id } = req.params;
-  res.json({ id });
-}
+  try {
+    // Query the database
+    const [result] = await res.db.query(`DELETE FROM accounts WHERE id = ?`, [id]);
+    // Success
+    res.json({
+      rows_deleted: result.affectedRows,
+    });
+  } catch (error) {
+    // Error
+    res.json({
+      error: error.message,
+    });
+  }
+});
+
+/**
+ * Authentication
+ *
+ * POST /api/accounts/auth
+ */
+router.post('/auth', async function findAll(req, res) {
+  const { email, password } = req.body;
+  try {
+    // Query the database
+    const [rows] = await res.db.query(
+      `
+      SELECT * FROM accounts
+      WHERE email = ? AND password = ?
+    `,
+      [email, password],
+    );
+    // Check if there are rows
+    if (rows.length > 0) {
+      // Success
+      res.json(rows[0]);
+    } else {
+      res.json({
+        error: 'Incorrect email or password',
+      });
+    }
+  } catch (error) {
+    // Error
+    res.json({
+      error: error.message,
+    });
+  }
+});
 
 module.exports = router;
