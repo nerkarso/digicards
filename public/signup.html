@@ -94,6 +94,7 @@
 
         // Check if passwords matches
         if (password.value !== confirmPassword.value) {
+          // Error
           Swal.fire({
             icon: 'error',
             text: 'Passwords do not match',
@@ -109,6 +110,7 @@
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+            image_url: 'https://dummyimage.com/128x128',
             first_name: firstName.value,
             last_name: lastName.value,
             email: email.value,
@@ -129,6 +131,7 @@
             }
           })
           .catch((error) => {
+            // Error
             Swal.fire({
               icon: 'error',
               text: error.message,

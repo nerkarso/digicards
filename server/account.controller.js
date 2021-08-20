@@ -26,17 +26,17 @@ router.get('/', async function findAll(req, res) {
  * POST /api/accounts
  */
 router.post('/', async function create(req, res) {
-  const { first_name, last_name, email, password } = req.body;
+  const { first_name, last_name, email, password, image_url } = req.body;
   try {
     // Query the database
     const [result] = await res.db.query(
       `
       INSERT INTO accounts
-        (first_name, last_name, email, password, role)
+        (first_name, last_name, email, password, image_url, role)
       VALUES
-        (?, ?, ?, ?, ?)
+        (?, ?, ?, ?, ?, ?)
     `,
-      [first_name, last_name, email, password, 1],
+      [first_name, last_name, email, password, image_url, 1],
     );
     // Send cookie to client
     const account = {
@@ -92,16 +92,16 @@ router.get('/:id', async function findOne(req, res) {
  */
 router.put('/:id', async function update(req, res) {
   const { id } = req.params;
-  const { first_name, last_name, email, password } = req.body;
+  const { first_name, last_name, email, password, image_url } = req.body;
   try {
     // Query the database
     const [result] = await res.db.query(
       `
       UPDATE accounts
-      SET first_name = ?, last_name = ?, email = ?, password = ?
+      SET first_name = ?, last_name = ?, email = ?, password = ?, image_url = ?
       WHERE id = ?
     `,
-      [first_name, last_name, email, password, id],
+      [first_name, last_name, email, password, image_url, id],
     );
     // Success
     res.json(result);

@@ -44,9 +44,7 @@
     <main class="px-4 mx-auto by-6 max-w-7xl">
       <div class="md:space-x-8 md:flex">
         <div class="flex-grow-0 flex-shrink-0 mb-4">
-          <div class="overflow-hidden rounded-full w-28">
-            <img id="imageUrl" class="object-cover w-full h-full" />
-          </div>
+          <img id="imageUrl" class="object-cover object-center border rounded-full shadow w-28 h-28" />
         </div>
         <div class="flex flex-col">
           <div class="mb-4">
@@ -156,13 +154,13 @@
               });
             } else {
               // Populate the details
-              imageUrl.textContent = data.image_url || '';
+              imageUrl.src = data.image_url || 'https://dummyimage.com/128x128';
               firstName.textContent = data.first_name || '';
               lastName.textContent = data.last_name || '';
               email.textContent = data.email || '';
 
               // Populate the fields
-              imageUrlInput.value = data.image_url || '';
+              imageUrlInput.value = data.image_url || 'https://dummyimage.com/128x128';
               firstNameInput.value = data.first_name || '';
               lastNameInput.value = data.last_name || '';
               emailInput.value = data.email || '';
