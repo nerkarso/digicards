@@ -38,10 +38,19 @@ router.post('/', async function create(req, res) {
     `,
       [first_name, last_name, email, password, 1],
     );
-    // Success
-    res.json({
-      rows_inserted: result.affectedRows,
+    // Send cookie to client
+    const account = {
+      id: result.insertId,
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      role: 1,
+    };
+    res.cookie('account', JSON.stringify(account), {
+      expires: new Date(Date.now() + 60 * 60 * 24), // Expires in 1 day
     });
+    // Success
+    res.json(result);
   } catch (error) {
     // Error
     res.json({
@@ -96,9 +105,7 @@ router.put('/:id', async function update(req, res) {
       [first_name, last_name, email, password, id],
     );
     // Success
-    res.json({
-      rows_updated: result.affectedRows,
-    });
+    res.json(result);
   } catch (error) {
     // Error
     res.json({
@@ -118,9 +125,7 @@ router.delete('/:id', async function remove(req, res) {
     // Query the database
     const [result] = await res.db.query(`DELETE FROM accounts WHERE id = ?`, [id]);
     // Success
-    res.json({
-      rows_deleted: result.affectedRows,
-    });
+    res.json(result);
   } catch (error) {
     // Error
     res.json({
@@ -140,13 +145,17 @@ router.post('/auth', async function findAll(req, res) {
     // Query the database
     const [rows] = await res.db.query(
       `
-      SELECT * FROM accounts
+      SELECT id, first_name, last_name, email, role FROM accounts
       WHERE email = ? AND password = ?
     `,
       [email, password],
     );
     // Check if there are rows
     if (rows.length > 0) {
+      // Send cookie to client
+      res.cookie('account', JSON.stringify(rows[0]), {
+        expires: new Date(Date.now() + 60 * 60 * 24), // Expires in 1 day
+      });
       // Success
       res.json(rows[0]);
     } else {
