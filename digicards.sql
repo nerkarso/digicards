@@ -28,7 +28,7 @@ CREATE TABLE `designs` (
   `uuid` varchar(100) NOT NULL,
   `title` varchar(200) DEFAULT 'Untitled',
   `data` longtext,
-  `thumbnail` blob,
+  `thumbnail` longtext,
   `account_id` int(11),
   `created` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -51,10 +51,19 @@ ALTER TABLE `accounts` AUTO_INCREMENT = 1;
 ALTER TABLE `designs` AUTO_INCREMENT = 1;
 
 --
--- Insert records into accounts table
+-- Insert rows into accounts table
 --
 INSERT INTO `accounts`
   (`first_name`, `last_name`, `email`, `password`, `image_url`, `role`)
 VALUES
   ('Dan', 'Xie', 'admin@gmail.com', '123', '/img/owner.png', 0),
   ('Hugh', 'Jackman', 'customer@gmail.com', '123', 'https://images.forbes.com/media/people/starcurrency/hugh-jackman_195x195.jpg', 1);
+
+--
+-- Insert rows into designs table
+--
+INSERT INTO `designs`
+  (`uuid`, `account_id`)
+VALUES
+  ('1080c5e9-ec0a-4076-a232-6db35af108cd', 1),
+  ('cd8dbcb9-cb5b-4de5-a12a-d4ff8a2fc489', 2);

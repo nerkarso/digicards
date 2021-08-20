@@ -54,13 +54,14 @@ router.post('/', async function create(req, res) {
 /**
  * Get a row
  *
- * GET /api/designs/1
+ * GET /api/designs/id
+ * GET /api/designs/xxxxxxxx-xxxx-xxxx-xxxxxxxxxxxxxxxxx
  */
 router.get('/:id', async function findOne(req, res) {
   const { id } = req.params;
   try {
     // Query the database
-    const [rows] = await res.db.query('SELECT * FROM designs WHERE id = ?', [id]);
+    const [rows] = await res.db.query('SELECT * FROM designs WHERE id = ? OR uuid = ?', [id, id]);
     // Check if there are rows
     if (rows.length > 0) {
       // Success
@@ -82,7 +83,8 @@ router.get('/:id', async function findOne(req, res) {
 /**
  * Update a row
  *
- * PUT /api/designs/1
+ * PUT /api/designs/id
+ * PUT /api/designs/xxxxxxxx-xxxx-xxxx-xxxxxxxxxxxxxxxxx
  */
 router.put('/:id', async function update(req, res) {
   const { id } = req.params;
@@ -91,15 +93,15 @@ router.put('/:id', async function update(req, res) {
     // Query the database
     let results = {};
     if (title) {
-      const [result] = await res.db.query('UPDATE designs SET title = ? WHERE id = ?', [title, id]);
+      const [result] = await res.db.query('UPDATE designs SET title = ? WHERE id = ? OR uuid = ?', [title, id, id]);
       results['title'] = result;
     }
     if (data) {
-      const [result] = await res.db.query('UPDATE designs SET data = ? WHERE id = ?', [data, id]);
+      const [result] = await res.db.query('UPDATE designs SET data = ? WHERE id = ? OR uuid = ?', [data, id, id]);
       results['data'] = result;
     }
     if (thumbnail) {
-      const [result] = await res.db.query('UPDATE designs SET thumbnail = ? WHERE id = ?', [thumbnail, id]);
+      const [result] = await res.db.query('UPDATE designs SET thumbnail = ? WHERE id = ? OR uuid = ?', [thumbnail, id, id]);
       results['thumbnail'] = result;
     }
     // Success
@@ -115,13 +117,14 @@ router.put('/:id', async function update(req, res) {
 /**
  * Delete a row
  *
- * DELETE /api/designs/1
+ * DELETE /api/designs/id
+ * DELETE /api/designs/xxxxxxxx-xxxx-xxxx-xxxxxxxxxxxxxxxxx
  */
 router.delete('/:id', async function remove(req, res) {
   const { id } = req.params;
   try {
     // Query the database
-    const [result] = await res.db.query(`DELETE FROM designs WHERE id = ?`, [id]);
+    const [result] = await res.db.query(`DELETE FROM designs WHERE id = ? OR uuid = ?`, [id, id]);
     // Success
     res.json(result);
   } catch (error) {
