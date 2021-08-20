@@ -21,27 +21,27 @@
           <form id="form" class="md:max-w-sm">
             <h1 class="mb-10 text-3xl font-bold text-center">Create your account</h1>
             <div class="relative mb-6">
-              <input id="first-name" placeholder="First name" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="text" name="firstName" />
-              <label for="first-name" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">First name</label>
+              <input type="text" id="firstName" placeholder="First name" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" required />
+              <label for="firstName" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">First name</label>
             </div>
             <div class="relative mb-6">
-              <input id="last-name" placeholder="Last name" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="text" name="lastName" />
-              <label for="last-name" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Last name</label>
+              <input type="text" id="lastName" placeholder="Last name" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" required />
+              <label for="lastName" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Last name</label>
             </div>
             <div class="relative mb-6">
-              <input id="email" placeholder="Email" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="email" name="email" />
+              <input type="email" id="email" placeholder="Email" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" required />
               <label for="email" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Email</label>
             </div>
             <div class="relative mb-6">
-              <input id="password" placeholder="Password" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="password" name="password" />
+              <input type="password" id="password" placeholder="Password" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" required />
               <label for="password" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Password</label>
             </div>
             <div class="relative mb-6">
-              <input id="confirm-password" placeholder="Confirm password" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="password" name="confirmPassword" />
-              <label for="confirm-password" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Confirm password</label>
+              <input type="password" id="confirmPassword" placeholder="Confirm password" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" required />
+              <label for="confirmPassword" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Confirm password</label>
             </div>
             <div class="mb-6">
-              <button class="w-full h-10 px-4 font-medium text-white transition duration-150 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none" type="submit" color="blue">Sign up</button>
+              <button type="submit" class="w-full h-10 px-4 font-medium text-white transition duration-150 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none">Sign up</button>
             </div>
             <p class="mb-2 text-gray-600">
               Already have an account?
@@ -75,14 +75,66 @@
     </div>
 
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.all.min.js"></script>
+    <script src="/js/main.js"></script>
     <script>
-      const form = document.getElementById('form');
-      form.onsubmit = (event) => {
+      /**
+       * Handle form submission
+       */
+      document.getElementById('form').onsubmit = (event) => {
         // Disable page refresh
         event.preventDefault();
-        window.location = '/designs.html';
+
+        // Fields
+        const firstName = document.getElementById('firstName');
+        const lastName = document.getElementById('lastName');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+
+        // Check if passwords matches
+        if (password.value !== confirmPassword.value) {
+          Swal.fire({
+            icon: 'error',
+            text: 'Passwords do not match',
+          });
+          // Stop here
+          return;
+        }
+
+        // Send AJAX request to server
+        fetch('/api/accounts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            first_name: firstName.value,
+            last_name: lastName.value,
+            email: email.value,
+            password: password.value,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            // Check for errors
+            if (data.error) {
+              Swal.fire({
+                icon: 'error',
+                text: data.error,
+              });
+            } else {
+              // Redirect to designs page
+              window.location = '/designs.html';
+            }
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: 'error',
+              text: error.message,
+            });
+          });
       };
     </script>
-    <script src="/js/main.js"></script>
   </body>
 </html>

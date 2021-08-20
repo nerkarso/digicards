@@ -13,8 +13,10 @@ async function createServer() {
   // Enable CORS
   app.use(cors());
 
-  // Parses JSON body
+  // Middleware for parsing application/json
   app.use(express.json());
+  // Middleware for parsing application/x-www-form-urlencoded
+  app.use(express.urlencoded({ extended: true }));
 
   // Serve the static files from the public folder
   app.use(express.static(path.resolve(__dirname, '..', 'public')));
