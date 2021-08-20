@@ -41,13 +41,11 @@ router.post('/', async function create(req, res) {
     // Send cookie to client
     const account = {
       id: result.insertId,
-      first_name: first_name,
-      last_name: last_name,
       email: email,
       role: 1,
     };
     res.cookie('account', JSON.stringify(account), {
-      expires: new Date(Date.now() + 60 * 60 * 24), // Expires in 1 day
+      maxAge: 999999999,
     });
     // Success
     res.json(result);
@@ -74,6 +72,7 @@ router.get('/:id', async function findOne(req, res) {
       // Success
       res.json(rows[0]);
     } else {
+      // Error
       res.json({
         error: 'No rows found',
       });
@@ -145,7 +144,7 @@ router.post('/auth', async function findAll(req, res) {
     // Query the database
     const [rows] = await res.db.query(
       `
-      SELECT id, first_name, last_name, email, role FROM accounts
+      SELECT id, email, role FROM accounts
       WHERE email = ? AND password = ?
     `,
       [email, password],
@@ -154,11 +153,12 @@ router.post('/auth', async function findAll(req, res) {
     if (rows.length > 0) {
       // Send cookie to client
       res.cookie('account', JSON.stringify(rows[0]), {
-        expires: new Date(Date.now() + 60 * 60 * 24), // Expires in 1 day
+        maxAge: 999999999,
       });
       // Success
       res.json(rows[0]);
     } else {
+      // Error
       res.json({
         error: 'Incorrect email or password',
       });

@@ -45,25 +45,25 @@
       <div class="md:space-x-8 md:flex">
         <div class="flex-grow-0 flex-shrink-0 mb-4">
           <div class="overflow-hidden rounded-full w-28">
-            <img src="https://randomuser.me/api/portraits/women/76.jpg" class="object-cover w-full h-full" />
+            <img id="imageUrl" class="object-cover w-full h-full" />
           </div>
         </div>
         <div class="flex flex-col">
           <div class="mb-4">
             <h6 class="text-sm font-medium text-gray-500">First name</h6>
-            <h4>Serena</h4>
+            <h4 id="firstName"></h4>
           </div>
           <div class="mb-4">
             <h6 class="text-sm font-medium text-gray-500">Last name</h6>
-            <h4>Marks</h4>
+            <h4 id="lastName"></h4>
           </div>
           <div class="mb-4">
             <h6 class="text-sm font-medium text-gray-500">Email</h6>
-            <h4>serena@gmail.com</h4>
+            <h4 id="email"></h4>
           </div>
           <div class="mb-4">
             <button type="button" onclick="openModalEdit()" class="h-10 px-4 mr-2 font-medium text-white transition duration-150 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none">Edit details</button>
-            <button type="button" id="btnDelete" class="h-10 px-4 font-medium text-white transition duration-150 bg-red-500 rounded-lg hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:outline-none">Delete account</button>
+            <button type="button" onclick="handleDelete()" class="h-10 px-4 font-medium text-white transition duration-150 bg-red-500 rounded-lg hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:outline-none">Delete account</button>
           </div>
         </div>
       </div>
@@ -74,28 +74,32 @@
     <div id="modalEdit" class="fixed inset-0 z-10 hidden overflow-y-auto transition-opacity duration-200 opacity-0" role="dialog">
       <div class="grid h-full place-items-center">
         <div onclick="closeModalEdit()" class="fixed inset-0 bg-black bg-opacity-50"></div>
-        <form class="relative w-full max-w-lg overflow-hidden rounded-lg">
+        <form id="form" class="relative w-full max-w-lg overflow-hidden rounded-lg">
           <div class="p-4 bg-white">
             <h1 class="mb-6 text-2xl font-bold">Edit details</h1>
             <div class="relative mb-6">
-              <input id="first-name" placeholder="First name" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="text" name="firstName" />
-              <label for="first-name" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">First name</label>
+              <input type="url" id="imageUrlInput" placeholder="Image URL" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" />
+              <label for="imageUrl" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Image URL</label>
             </div>
             <div class="relative mb-6">
-              <input id="last-name" placeholder="Last name" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="text" name="lastName" />
-              <label for="last-name" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Last name</label>
+              <input type="text" id="firstNameInput" placeholder="First name" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" required />
+              <label for="firstName" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">First name</label>
             </div>
             <div class="relative mb-6">
-              <input id="email" placeholder="Email" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="email" name="email" />
+              <input type="text" id="lastNameInput" placeholder="Last name" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" required />
+              <label for="lastName" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Last name</label>
+            </div>
+            <div class="relative mb-6">
+              <input type="email" id="emailInput" placeholder="Email" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" required />
               <label for="email" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Email</label>
             </div>
             <div class="relative">
-              <input id="password" placeholder="Password" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" type="password" name="password" />
+              <input type="password" id="passwordInput" placeholder="Password" class="w-full placeholder-transparent transition duration-150 border-gray-400 rounded-md focus:border-blue-500 focus:ring-blue-500" />
               <label for="password" class="absolute px-1 text-sm text-gray-500 bg-white -top-3 left-2">Password</label>
             </div>
           </div>
           <div class="p-4 bg-gray-50">
-            <button type="button" onclick="closeModalEdit()" class="h-10 px-4 mr-2 font-medium text-white transition duration-150 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none">Update</button>
+            <button type="submit" class="h-10 px-4 mr-2 font-medium text-white transition duration-150 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none">Update</button>
             <button type="button" onclick="closeModalEdit()" class="h-10 px-4 font-medium text-gray-800 transition duration-150 bg-gray-200 rounded-lg hover:bg-gray-300 focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 focus:outline-none">Cancel</button>
           </div>
         </form>
@@ -107,31 +111,205 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.all.min.js"></script>
     <script src="/js/main.js"></script>
     <script>
-      const btnDelete = document.getElementById('btnDelete');
-      btnDelete.onclick = (event) => {
-        Swal.fire({
-          text: 'Do you really want to delete your account?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Delete',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              text: 'Your account has been deleted.',
-              icon: 'success',
-            });
-          }
-        });
-      };
+      // Details
+      const imageUrl = document.getElementById('imageUrl');
+      const firstName = document.getElementById('firstName');
+      const lastName = document.getElementById('lastName');
+      const email = document.getElementById('email');
 
+      // Fields
+      const imageUrlInput = document.getElementById('imageUrlInput');
+      const firstNameInput = document.getElementById('firstNameInput');
+      const lastNameInput = document.getElementById('lastNameInput');
+      const emailInput = document.getElementById('emailInput');
+      const passwordInput = document.getElementById('passwordInput');
+
+      /**
+       * Get account details from database
+       */
+      function getDetails() {
+        // Get the signed in account
+        const account = getSignedInAccount();
+
+        // Check if an account is not signed in
+        if (!account) {
+          // Error
+          Swal.fire({
+            icon: 'error',
+            text: 'No account is signed in right now',
+          });
+
+          // Stop here
+          return;
+        }
+
+        // Send AJAX request to server
+        fetch(`/api/accounts/${account.id}`)
+          .then((res) => res.json())
+          .then((data) => {
+            // Check for errors
+            if (data.error) {
+              // Error
+              Swal.fire({
+                icon: 'error',
+                text: data.error,
+              });
+            } else {
+              // Populate the details
+              imageUrl.textContent = data.image_url || '';
+              firstName.textContent = data.first_name || '';
+              lastName.textContent = data.last_name || '';
+              email.textContent = data.email || '';
+
+              // Populate the fields
+              imageUrlInput.value = data.image_url || '';
+              firstNameInput.value = data.first_name || '';
+              lastNameInput.value = data.last_name || '';
+              emailInput.value = data.email || '';
+              passwordInput.value = data.password || '';
+            }
+          })
+          .catch((error) => {
+            // Error
+            Swal.fire({
+              icon: 'error',
+              text: error.message,
+            });
+          });
+      }
+
+      getDetails();
+
+      /**
+       * Handles modal actions
+       */
       const modalEdit = document.getElementById('modalEdit');
+      // Open modal
       function openModalEdit() {
         modalEdit.classList.remove('hidden');
-        setTimeout(() => modalEdit.classList.add('opacity-100'));
+        setTimeout(() => modalEdit.classList.add('opacity-100'), 50);
       }
+      // Close modal
       function closeModalEdit() {
         modalEdit.classList.remove('opacity-100');
         setTimeout(() => modalEdit.classList.add('hidden'), 200);
+      }
+
+      /**
+       * Handles form submission
+       */
+      document.getElementById('form').onsubmit = (event) => {
+        // Disable page refresh
+        event.preventDefault();
+
+        // Get the signed in account
+        const account = getSignedInAccount();
+
+        // Send AJAX request to server
+        fetch(`/api/accounts/${account.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            image_url: imageUrlInput.value,
+            first_name: firstNameInput.value,
+            last_name: lastNameInput.value,
+            email: emailInput.value,
+            password: passwordInput.value,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            // Check for errors
+            if (data.error) {
+              // Error
+              Swal.fire({
+                icon: 'error',
+                text: data.error,
+              });
+            } else {
+              // Success
+              Swal.fire({
+                icon: 'success',
+                text: 'Your account has been updated',
+              }).then(() => {
+                setTimeout(() => {
+                  // Close the modal
+                  closeModalEdit();
+                }, 300);
+                setTimeout(() => {
+                  // Get fresh account details from database
+                  getDetails();
+                }, 600);
+              });
+            }
+          })
+          .catch((error) => {
+            // Error
+            Swal.fire({
+              icon: 'error',
+              text: error.message,
+            });
+          });
+      };
+
+      /**
+       * Handles deleting your account
+       */
+      function handleDelete() {
+        // Get the signed in account
+        const account = getSignedInAccount();
+
+        // Check if an account is signed in
+        if (account) {
+          // Prompt
+          Swal.fire({
+            icon: 'warning',
+            text: 'Do you really want to delete your account?',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Send AJAX request to server
+              fetch(`/api/accounts/${account.id}`, {
+                method: 'DELETE',
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  // Check for errors
+                  if (data.error) {
+                    Swal.fire({
+                      icon: 'error',
+                      text: data.error,
+                    });
+                  } else {
+                    // Success
+                    Swal.fire({
+                      icon: 'success',
+                      text: 'Your account has been deleted',
+                    }).then(() => {
+                      // Sign out
+                      handleSignout();
+                    });
+                  }
+                })
+                .catch((error) => {
+                  // Error
+                  Swal.fire({
+                    icon: 'error',
+                    text: error.message,
+                  });
+                });
+            }
+          });
+        } else {
+          // Error
+          Swal.fire({
+            icon: 'error',
+            text: 'No account is signed in right now',
+          });
+        }
       }
     </script>
   </body>
