@@ -40,8 +40,8 @@ async function createServer() {
   app.use('/api/accounts', require('./account.controller'));
 
   // Start the Express server
-  await app.listen(3000);
-  console.log('[Express] Server running on http://localhost:3000');
+  await app.listen(process.env.PORT || 3000);
+  console.log(`[Express] Server running on http://localhost:${process.env.PORT || 3000}`);
 }
 
 createServer();
