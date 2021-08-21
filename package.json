@@ -7,7 +7,8 @@
     "start": "node server/index.js",
     "editor": "parcel editor/index.html editor/preview.html -d editor/dist --no-source-maps --no-cache",
     "build": "parcel build editor/index.html editor/preview.html -d editor/dist --no-source-maps --no-cache",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "cors": "^2.8.5",
