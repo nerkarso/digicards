@@ -55,6 +55,30 @@ function toggleSignedInAccount() {
 }
 
 /**
+ * Show actions when account has admin permissions
+ */
+function showAdminActions() {
+  const actions = document.querySelectorAll('.adminPermission');
+
+  // Get the signed in account
+  const account = getSignedInAccount();
+
+  // Check if account is not an admin
+  if (account.role !== 0) {
+    // Stop here
+    return;
+  }
+
+  // Check if there are any actions
+  if (actions.length > 0) {
+    [...actions].forEach((actionElement) => {
+      // Show
+      actionElement.removeAttribute('style');
+    });
+  }
+}
+
+/**
  * Show a toast message
  */
 function showToast(icon, message, options) {

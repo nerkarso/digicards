@@ -319,11 +319,11 @@ const App = ({ store }) => {
           </a>
         )}
         {account ? (
-          <a href="/account.html" className="btn" target="_blank">
+          <a href="/account.html" className="btn">
             {account?.first_name} {account?.last_name}
           </a>
         ) : (
-          <a href="/signin.html" className="btn" target="_blank">
+          <a href="/signin.html" className="btn">
             Sign in
           </a>
         )}

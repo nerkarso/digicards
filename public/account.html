@@ -23,7 +23,7 @@
         <div class="flex h-full pr-4 ml-8 mr-auto space-x-4 sm:space-x-8">
           <a href="/" class="flex items-center h-full px-1 font-medium text-gray-500 transition duration-150 border-b-2 border-transparent focus:text-blue-500 focus:outline-none hover:text-gray-900">Home</a>
           <a href="/designs.html" class="flex items-center h-full px-1 font-medium text-gray-500 transition duration-150 border-b-2 border-transparent focus:text-blue-500 focus:outline-none hover:text-gray-900">Designs</a>
-          <a href="/accounts.html" class="flex items-center h-full px-1 font-medium text-gray-500 transition duration-150 border-b-2 border-transparent focus:text-blue-500 focus:outline-none hover:text-gray-900">Accounts</a>
+          <a href="/accounts.html" class="flex items-center h-full px-1 font-medium text-gray-500 transition duration-150 border-b-2 border-transparent adminPermission focus:text-blue-500 focus:outline-none hover:text-gray-900" style="display: none">Accounts</a>
         </div>
         <!-- Start Account -->
         <div id="currentAccount" class="flex-shrink-0 hidden h-full">
@@ -333,6 +333,7 @@
 
       getDetails();
       toggleSignedInAccount();
+      showAdminActions();
     </script>
   </body>
 </html>
