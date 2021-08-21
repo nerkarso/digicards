@@ -8,10 +8,7 @@
     <link rel="shortcut icon" href="/img/icon.svg" />
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.9/css/boxicons.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/base.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/components.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tailwindcss/forms@0.3.3/dist/forms.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/utilities.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" />
     <link rel="stylesheet" href="/css/main.css" />
   </head>
   <body>
@@ -22,6 +19,7 @@
           <img class="w-8 h-8" src="/img/icon.svg" />
         </div>
         <div class="flex h-full pr-4 ml-8 mr-auto space-x-4 sm:space-x-8">
+          <a href="/" class="flex items-center h-full px-1 font-medium text-gray-500 transition duration-150 border-b-2 border-transparent focus:text-blue-500 focus:outline-none hover:text-gray-900">Home</a>
           <a href="/designs.html" class="flex items-center h-full px-1 font-medium transition duration-150 border-b-2 border-blue-500 focus:text-blue-500 focus:outline-none hover:text-gray-900">Designs</a>
           <a href="/accounts.html" class="flex items-center h-full px-1 font-medium text-gray-500 transition duration-150 border-b-2 border-transparent focus:text-blue-500 focus:outline-none hover:text-gray-900">Accounts</a>
         </div>
@@ -67,13 +65,13 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.all.min.js"></script>
     <script src="/js/main.js"></script>
     <script>
+      // Get the signed in account
+      const account = getSignedInAccount();
+
       /**
        * Handle starting a new design
        */
       function handleNew() {
-        // Get the signed in account
-        const account = getSignedInAccount();
-
         // Check if an account is not signed in
         if (!account) {
           // Error
@@ -143,10 +141,7 @@
                   });
                 } else {
                   // Success
-                  Swal.fire({
-                    icon: 'success',
-                    text: 'Design has been deleted',
-                  });
+                  showToast('success', 'Design deleted');
                   // Get fresh rows from the database
                   getRows();
                 }
@@ -203,8 +198,20 @@
        * Get rows from the database
        */
       function getRows() {
+        // Check if an account is not signed in
+        if (!account) {
+          // Error
+          Swal.fire({
+            icon: 'error',
+            text: 'No account is signed in right now',
+          });
+
+          // Stop here
+          return;
+        }
+
         // Send AJAX request to server
-        fetch('/api/designs')
+        fetch(`/api/accounts/${account.id}/designs`)
           .then((res) => res.json())
           .then((data) => {
             // Check for errors

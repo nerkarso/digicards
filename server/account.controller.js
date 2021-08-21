@@ -21,6 +21,26 @@ router.get('/', async function findAll(req, res) {
 });
 
 /**
+ * Get all the designs by account
+ *
+ * GET /api/accounts/1/designs
+ */
+router.get('/:id/designs', async function findAll(req, res) {
+  const { id } = req.params;
+  try {
+    // Query the database
+    const [rows] = await res.db.query('SELECT * FROM designs WHERE account_id = ? ORDER BY updated DESC', [id]);
+    // Success
+    res.json(rows);
+  } catch (error) {
+    // Error
+    res.json({
+      error: error.message,
+    });
+  }
+});
+
+/**
  * Create a new row
  *
  * POST /api/accounts
@@ -77,7 +97,7 @@ router.get('/:id', async function findOne(req, res) {
     } else {
       // Error
       res.json({
-        error: 'No rows found',
+        error: 'No account found',
       });
     }
   } catch (error) {

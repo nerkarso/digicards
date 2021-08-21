@@ -53,3 +53,23 @@ function toggleSignedInAccount() {
     currentAccount.classList.remove('hidden');
   }
 }
+
+/**
+ * Show a toast message
+ */
+function showToast(icon, message, options) {
+  window.Swal.fire({
+    icon: icon,
+    title: message,
+    timer: 3000,
+    timerProgressBar: true,
+    toast: true,
+    position: 'bottom-end',
+    width: 300,
+    padding: '0.75rem',
+    showConfirmButton: false,
+    ...options,
+  });
+}
+// Store globally
+window.showToast = showToast;

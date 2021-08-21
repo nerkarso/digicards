@@ -61,30 +61,15 @@ const App = ({ store }) => {
     }
   }, []);
 
-  // Show a toast message
-  const showToast = (message) => {
-    window.Swal.fire({
-      icon: 'success',
-      title: message,
-      timer: 3000,
-      timerProgressBar: true,
-      toast: true,
-      position: 'bottom-end',
-      width: 300,
-      padding: '0.75rem',
-      showConfirmButton: false,
-    });
-  };
-
   // Handles exporting as image
   const handleExportImage = () => {
-    showToast('Exporting...');
+    window.showToast('success', 'Exporting...');
     store.saveAsImage({ fileName: title });
   };
 
   // Handles exporting as PDF
   const handleExportPDF = () => {
-    showToast('Exporting...');
+    window.showToast('success', 'Exporting...');
     store.saveAsPDF({ fileName: title });
   };
 

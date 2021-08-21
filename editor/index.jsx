@@ -78,21 +78,6 @@ const App = ({ store }) => {
     setAccount(currentAccount);
   }, []);
 
-  // Show a toast message
-  const showToast = (message) => {
-    window.Swal.fire({
-      icon: 'success',
-      title: message,
-      timer: 2000,
-      timerProgressBar: true,
-      toast: true,
-      position: 'bottom-end',
-      width: 300,
-      padding: '0.75rem',
-      showConfirmButton: false,
-    });
-  };
-
   // Handles creating a new design
   const handleNew = () => {
     // Redirect to editor app
@@ -130,7 +115,7 @@ const App = ({ store }) => {
             });
           } else {
             // Success
-            showToast('Saved');
+            window.showToast('success', 'Saved');
           }
         })
         .catch((error) => {
@@ -189,14 +174,14 @@ const App = ({ store }) => {
 
   // Handles exporting as image
   const handleExportImage = () => {
-    showToast('Exporting...');
-    store.saveAsImage({ fileName: title });
+    window.showToast('success', 'Exporting...');
+    store.saveAsImage({ fileName: title, mimeType: 'image/jpg' });
   };
 
   // Handles exporting as PDF
   const handleExportPDF = () => {
-    showToast('Exporting...');
-    store.saveAsPDF({ fileName: title });
+    window.showToast('success', 'Exporting...');
+    store.saveAsPDF({ fileName: title, mimeType: 'image/jpg' });
   };
 
   // Handles exiting the app
@@ -241,7 +226,7 @@ const App = ({ store }) => {
         textarea.select();
         try {
           document.execCommand('copy');
-          showToast('Link copied');
+          window.showToast('success', 'Link copied');
         } catch (error) {
           // Error
           Swal.fire({

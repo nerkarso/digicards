@@ -10,7 +10,7 @@ const router = Router();
 router.get('/', async function findAll(req, res) {
   try {
     // Query the database
-    const [rows] = await res.db.query('SELECT * FROM designs');
+    const [rows] = await res.db.query('SELECT * FROM designs ORDER BY updated DESC');
     // Success
     res.json(rows);
   } catch (error) {
@@ -68,7 +68,7 @@ router.get('/:uuid', async function findOne(req, res) {
     } else {
       // Error
       res.json({
-        error: 'No rows found',
+        error: 'No design found',
       });
     }
   } catch (error) {

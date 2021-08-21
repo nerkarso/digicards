@@ -35,7 +35,7 @@ CREATE TABLE `designs` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`account_id`) REFERENCES `accounts`(`id`)
     ON UPDATE CASCADE
-    ON DELETE SET NULL
+    ON DELETE CASCADE
 );
 
 --
