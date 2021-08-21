@@ -231,10 +231,25 @@ const App = ({ store }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         // Copy the link to the clipboard
-        if (navigator.clipboard) {
+        const textarea = document.createElement('textarea');
+        textarea.value = previewUrl;
+        textarea.style.position = 'fixed';
+        textarea.style.top = 0;
+        textarea.style.left = 0;
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        try {
+          document.execCommand('copy');
           showToast('Link copied');
-          navigator.clipboard.writeText(previewUrl).then(() => {});
+        } catch (error) {
+          // Error
+          Swal.fire({
+            icon: 'error',
+            text: error.message,
+          });
         }
+        document.body.removeChild(textarea);
       }
     });
   };
