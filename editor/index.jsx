@@ -22,6 +22,7 @@ let initialTitle = 'Untitled';
 const App = ({ store }) => {
   const [uuid, setUuid] = useState();
   const [title, setTitle] = useState(initialTitle);
+  const [account, setAccount] = useState();
 
   // Get the uuid from the URL
   const getCurrentId = () => {
@@ -71,6 +72,10 @@ const App = ({ store }) => {
           });
         });
     }
+
+    // Get the signed in account
+    const currentAccount = window.getSignedInAccount();
+    setAccount(currentAccount);
   }, []);
 
   // Show a toast message
@@ -139,9 +144,6 @@ const App = ({ store }) => {
       /**
        * Start a new design
        */
-
-      // Get the signed in account
-      const account = window.getSignedInAccount();
 
       // Check if an account is not signed in
       if (!account) {
@@ -286,6 +288,7 @@ const App = ({ store }) => {
   return (
     <>
       <nav className="navbar">
+        <img src="/img/icon.svg" className="logo" />
         <button type="button" onClick={handleNew} className="btn">
           New
         </button>
@@ -301,18 +304,29 @@ const App = ({ store }) => {
         <button type="button" onClick={handleExportPDF} className="btn">
           Export as PDF
         </button>
-        <button type="button" onClick={handleExit} className="btn">
-          Exit
-        </button>
-        <input type="text" value={title} onChange={handleInputChange} onBlur={handleInputBlur} className="inputTitle" placeholder="Title of your design" />
         {uuid && (
           <button type="button" onClick={handleShare} className="btn">
             Share
           </button>
         )}
-        <a href="/account.html" className="btn" target="_blank">
-          My account
-        </a>
+        <button type="button" onClick={handleExit} className="btn">
+          Exit
+        </button>
+        <input type="text" value={title} onChange={handleInputChange} onBlur={handleInputBlur} className="inputTitle" placeholder="Title of your design" />
+        {uuid && (
+          <a href={`/preview/${uuid}`} className="btn" target="_blank">
+            Preview
+          </a>
+        )}
+        {account ? (
+          <a href="/account.html" className="btn" target="_blank">
+            {account?.first_name} {account?.last_name}
+          </a>
+        ) : (
+          <a href="/signin.html" className="btn" target="_blank">
+            Sign in
+          </a>
+        )}
       </nav>
       <main id="app">
         <PolotnoContainer>

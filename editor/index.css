@@ -33,6 +33,12 @@ body {
   outline: none;
 }
 
+.logo {
+  width: 24px;
+  height: 24px;
+  margin: 0 8px;
+}
+
 .btn {
   border: none;
   background-color: transparent;

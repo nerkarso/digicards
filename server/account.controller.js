@@ -41,11 +41,14 @@ router.post('/', async function create(req, res) {
     // Send cookie to client
     const account = {
       id: result.insertId,
+      first_name: first_name,
+      last_name: last_name,
       email: email,
+      image_url: image_url,
       role: 1,
     };
     res.cookie('account', JSON.stringify(account), {
-      maxAge: 999999999,
+      expires: getExpireDate(7), // Expires in 7 days
     });
     // Success
     res.json(result);
@@ -144,7 +147,7 @@ router.post('/auth', async function findAll(req, res) {
     // Query the database
     const [rows] = await res.db.query(
       `
-      SELECT id, email, role FROM accounts
+      SELECT id, first_name, last_name, email, image_url, role FROM accounts
       WHERE email = ? AND password = ?
     `,
       [email, password],
@@ -153,7 +156,7 @@ router.post('/auth', async function findAll(req, res) {
     if (rows.length > 0) {
       // Send cookie to client
       res.cookie('account', JSON.stringify(rows[0]), {
-        maxAge: 999999999,
+        expires: getExpireDate(7), // Expires in 7 days
       });
       // Success
       res.json(rows[0]);
@@ -170,5 +173,14 @@ router.post('/auth', async function findAll(req, res) {
     });
   }
 });
+
+/**
+ * Calculate expire date
+ */
+function getExpireDate(days) {
+  const date = new Date();
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  return date;
+}
 
 module.exports = router;
