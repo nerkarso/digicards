@@ -67,6 +67,7 @@ body {
   justify-content: center;
   height: 28px;
   padding: 0 8px;
+  min-width: 60px;
 }
 .btn:hover {
   background-color: #f3f4f6;
@@ -75,4 +76,12 @@ body {
 .btn:focus {
   background-color: #e5e7eb;
   outline: none;
+}
+
+/* Dirty design indicator */
+#dirty {
+  color: red;
+}
+#dirty.hidden {
+  display: none;
 }

@@ -16,6 +16,24 @@ const store = createStore({
 store.setSize(960, 640);
 store.addPage();
 
+// The initial store data
+let oldStoreData;
+
+// Listen for changes
+store.on('change', () => {
+  const dirty = document.getElementById('dirty');
+  const newStoreData = JSON.stringify(store.toJSON());
+  if (oldStoreData) {
+    if (oldStoreData !== newStoreData) {
+      if (dirty) {
+        // Show the indicator
+        dirty.classList.remove('hidden');
+      }
+      oldStoreData = newStoreData;
+    }
+  }
+});
+
 // Save the initial title of the design
 let initialTitle = 'Untitled';
 
@@ -61,6 +79,8 @@ const App = ({ store }) => {
               setTitle(result.title);
               // Load the data into the store
               store.loadJSON(JSON.parse(result.data));
+              // Save the old store
+              oldStoreData = result.data;
             }
           }
         })
@@ -71,6 +91,9 @@ const App = ({ store }) => {
             text: error.message,
           });
         });
+    } else {
+      // Add button dirty indicator
+      document.getElementById('dirty').classList.remove('hidden');
     }
 
     // Get the signed in account
@@ -114,6 +137,10 @@ const App = ({ store }) => {
               text: result.error,
             });
           } else {
+            // Save the old store
+            oldStoreData = JSON.stringify(store.toJSON());
+            // Remove button dirty indicator
+            document.getElementById('dirty').classList.add('hidden');
             // Success
             window.showToast('success', 'Saved');
           }
@@ -292,11 +319,16 @@ const App = ({ store }) => {
         <button type="button" onClick={handleNew} className="btn">
           New
         </button>
-        <button type="button" onClick={handleOpen} className="btn">
-          Open
-        </button>
+        {account && (
+          <button type="button" onClick={handleOpen} className="btn">
+            Open
+          </button>
+        )}
         <button type="button" onClick={handleSave} className="btn">
           Save
+          <span id="dirty" className="hidden">
+            *
+          </span>
         </button>
         <button type="button" onClick={handleExportImage} className="btn">
           Export as image
