@@ -27,6 +27,11 @@ async function createServer() {
     res.sendFile(path.resolve(__dirname, '..', 'editor', 'dist', 'index.html'));
   });
 
+  // Design preview
+  app.get('/preview*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '..', 'editor', 'dist', 'preview.html'));
+  });
+
   // Establish a connection with the database
   app.use(createConnection);
 

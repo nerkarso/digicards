@@ -8,7 +8,24 @@ body {
   height: calc(100vh - 48px);
 }
 
+/* Hide scrollbar  */
+#preview {
+  background-color: #e8e8e8;
+  overflow: hidden;
+}
+#editor #app > div > div > div:nth-child(2) > div {
+  overflow-x: hidden !important;
+}
+#preview #app > div > div {
+  overflow-x: hidden !important;
+}
+/* Disable pointer on preview */
+#preview #app > div > div > div {
+  pointer-events: none;
+}
+
 .navbar {
+  background-color: #fff;
   display: flex;
   align-items: center;
   height: 48px;

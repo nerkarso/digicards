@@ -343,4 +343,4 @@ const App = ({ store }) => {
   );
 };
 
-ReactDOM.render(<App store={store} />, document.getElementById('root'));
+ReactDOM.render(<App store={store} />, document.getElementById('editor'));
