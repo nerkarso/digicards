@@ -63,180 +63,18 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.all.min.js"></script>
-    <script src="/js/main.js"></script>
     <script>
-      // Get the signed in account
-      const account = getSignedInAccount();
-
-      /**
-       * Handle starting a new design
-       */
-      function handleNew() {
-        // Check if an account is not signed in
-        if (!account) {
-          // Error
-          Swal.fire({
-            icon: 'error',
-            text: 'No account is signed in right now',
-          });
-
-          // Stop here
-          return;
-        }
-
-        // Send AJAX request to server
-        fetch('/api/designs', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            account_id: account.id,
-          }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            // Check for errors
-            if (data.error) {
-              Swal.fire({
-                icon: 'error',
-                text: data.error,
-              });
-            } else {
-              // Redirect to editor app
-              window.location = `/editor/${data.uuid}`;
-            }
-          })
-          .catch((error) => {
-            // Error
-            Swal.fire({
-              icon: 'error',
-              text: error.message,
-            });
-          });
-      }
-
       /**
        * Handle deleting a design
        */
-      function handleDelete(uuid) {
+      function handleDelete() {
         Swal.fire({
           text: 'Do you really want to delete this?',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Delete',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // Send AJAX request to server
-            fetch(`/api/designs/${uuid}`, {
-              method: 'DELETE',
-            })
-              .then((res) => res.json())
-              .then((data) => {
-                // Check for errors
-                if (data.error) {
-                  Swal.fire({
-                    icon: 'error',
-                    text: data.error,
-                  });
-                } else {
-                  // Success
-                  showToast('success', 'Design deleted');
-                  // Get fresh rows from the database
-                  getRows();
-                }
-              })
-              .catch((error) => {
-                // Error
-                Swal.fire({
-                  icon: 'error',
-                  text: error.message,
-                });
-              });
-          }
         });
       }
-
-      /**
-       * Render the rows
-       */
-      function renderRows(rows) {
-        const designs = document.getElementById('designs');
-
-        // Check if there are any rows
-        if (rows.length > 0) {
-          designs.innerHTML = rows
-            .map((row) => {
-              return `
-                <div class="relative p-4 sm:w-1/2 lg:w-1/3">
-                  <a href="/editor/${row.uuid}" class="block h-full overflow-hidden transition duration-150 rounded-lg shadow hover:shadow-lg focus:outline-none focus:shadow-lg">
-                    <img class="object-cover object-center w-full lg:h-48 md:h-36" src="${row.thumbnail || 'https://dummyimage.com/640x420'}" />
-                    <div class="relative p-4 lg:p-6">
-                      <h1 class="mb-2 text-lg font-medium">${row.title}</h1>
-                      <p class="text-sm text-gray-400">Updated on ${new Date(row.updated).toUTCString()}</p>
-                    </div>
-                  </a>
-                  <button type="button" onclick="handleDelete('${row.uuid}')" class="absolute flex items-center justify-center w-10 h-10 text-2xl leading-none text-white transition duration-150 bg-red-500 rounded-lg shadow right-6 top-6 hover:bg-red-600 focus:bg-red-700 focus:outline-none">
-                    <i class="bx bx-trash"></i>
-                  </button>
-                </div>
-            `;
-            })
-            .join('');
-        } else {
-          // Show empty state
-          designs.innerHTML = `
-            <div class="flex flex-col items-center justify-center flex-1 px-4 py-8 text-center">
-              <img src="/img/undraw-floating.svg" class="mb-8 w-72" />
-              <h1 class="mb-4 text-gray-500">No designs found</h1>
-            </div>
-          `;
-        }
-      }
-
-      /**
-       * Get rows from the database
-       */
-      function getRows() {
-        // Check if an account is not signed in
-        if (!account) {
-          // Error
-          Swal.fire({
-            icon: 'error',
-            text: 'No account is signed in right now',
-          });
-
-          // Stop here
-          return;
-        }
-
-        // Send AJAX request to server
-        fetch(`/api/accounts/${account.id}/designs`)
-          .then((res) => res.json())
-          .then((data) => {
-            // Check for errors
-            if (data.error) {
-              Swal.fire({
-                icon: 'error',
-                text: data.error,
-              });
-            } else {
-              // Show the rows in the table
-              renderRows(data);
-            }
-          })
-          .catch((error) => {
-            // Error
-            Swal.fire({
-              icon: 'error',
-              text: error.message,
-            });
-          });
-      }
-
-      getRows();
-      toggleSignedInAccount();
-      showAdminActions();
     </script>
   </body>
 </html>

@@ -72,135 +72,18 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.all.min.js"></script>
-    <script src="/js/main.js"></script>
     <script>
       /**
        * Handle deleting an account
        */
-      function handleDelete(id) {
-        // Prevent deleting admin account
-        if (id == 1) {
-          Swal.fire({
-            icon: 'error',
-            text: 'Admin account cannot be deleted',
-          });
-
-          // Stop here
-          return;
-        }
-
+      function handleDelete() {
         Swal.fire({
           text: 'Do you really want to delete this?',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Delete',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // Send AJAX request to server
-            fetch(`/api/accounts/${id}`, {
-              method: 'DELETE',
-            })
-              .then((res) => res.json())
-              .then((data) => {
-                // Check for errors
-                if (data.error) {
-                  Swal.fire({
-                    icon: 'error',
-                    text: data.error,
-                  });
-                } else {
-                  // Success
-                  showToast('success', 'Account deleted');
-                  // Get fresh rows from the database
-                  getRows();
-                }
-              })
-              .catch((error) => {
-                // Error
-                Swal.fire({
-                  icon: 'error',
-                  text: error.message,
-                });
-              });
-          }
         });
       }
-
-      /**
-       * Render the rows in the table
-       */
-      function renderRows(rows) {
-        const accounts = document.getElementById('accounts');
-
-        // Check if there are any rows
-        if (rows.length > 0) {
-          accounts.innerHTML = rows
-            .map((row) => {
-              return `
-              <tr>
-                <td class="px-4 py-2 whitespace-nowrap">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 w-12 h-12">
-                      <img class="object-cover object-center rounded-full" src="${row.image_url || 'https://dummyimage.com/128x128'}" />
-                    </div>
-                    <div class="ml-4 font-medium">${row.first_name} ${row.last_name}</div>
-                  </div>
-                </td>
-                <td class="px-4 py-2 whitespace-nowrap">${row.email}</td>
-                <td class="px-4 py-2 text-gray-500 whitespace-nowrap">
-                  <span class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-md">${row.role === 0 ? 'Admin' : 'Customer'}</span>
-                </td>
-                <td class="px-4 py-2 text-right whitespace-nowrap">
-                  <button type="button" onclick="handleDelete(${row.id})" class="h-10 px-4 font-medium text-white transition duration-150 bg-red-500 rounded-lg hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:outline-none">Delete</button>
-                </td>
-              </tr>
-            `;
-            })
-            .join('');
-        } else {
-          // Show empty state
-          accounts.innerHTML = `
-            <tr>
-              <td class="px-4 py-8 text-center text-gray-500" colspan="4">
-                <img src="/img/undraw-floating.svg" class="w-64 mx-auto mb-8" />
-                <h1 class="text-gray-500">No rows found</h1>
-              </td>
-            </tr>
-          `;
-        }
-      }
-
-      /**
-       * Get rows from the database
-       */
-      function getRows() {
-        // Send AJAX request to server
-        fetch('/api/accounts')
-          .then((res) => res.json())
-          .then((data) => {
-            // Check for errors
-            if (data.error) {
-              Swal.fire({
-                icon: 'error',
-                text: data.error,
-              });
-            } else {
-              // Show the rows in the table
-              renderRows(data);
-            }
-          })
-          .catch((error) => {
-            // Error
-            Swal.fire({
-              icon: 'error',
-              text: error.message,
-            });
-          });
-      }
-
-      getRows();
-      toggleSignedInAccount();
-      showAdminActions();
     </script>
   </body>
 </html>

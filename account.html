@@ -106,7 +106,7 @@
             </div>
           </div>
           <div class="p-4 bg-gray-50">
-            <button type="submit" class="h-10 px-4 mr-2 font-medium text-white transition duration-150 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none">Update</button>
+            <button type="submit" onclick="closeModalEdit()" class="h-10 px-4 mr-2 font-medium text-white transition duration-150 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:outline-none">Update</button>
             <button type="button" onclick="closeModalEdit()" class="h-10 px-4 font-medium text-gray-800 transition duration-150 bg-gray-200 rounded-lg hover:bg-gray-300 focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 focus:outline-none">Cancel</button>
           </div>
         </form>
@@ -116,75 +116,7 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.all.min.js"></script>
-    <script src="/js/main.js"></script>
     <script>
-      // Details
-      const imageUrl = document.getElementById('imageUrl');
-      const firstName = document.getElementById('firstName');
-      const lastName = document.getElementById('lastName');
-      const email = document.getElementById('email');
-
-      // Fields
-      const imageUrlInput = document.getElementById('imageUrlInput');
-      const firstNameInput = document.getElementById('firstNameInput');
-      const lastNameInput = document.getElementById('lastNameInput');
-      const emailInput = document.getElementById('emailInput');
-      const passwordInput = document.getElementById('passwordInput');
-
-      /**
-       * Get account details from database
-       */
-      function getDetails() {
-        // Get the signed in account
-        const account = getSignedInAccount();
-
-        // Check if an account is not signed in
-        if (!account) {
-          // Error
-          Swal.fire({
-            icon: 'error',
-            text: 'No account is signed in right now',
-          });
-
-          // Stop here
-          return;
-        }
-
-        // Send AJAX request to server
-        fetch(`/api/accounts/${account.id}`)
-          .then((res) => res.json())
-          .then((data) => {
-            // Check for errors
-            if (data.error) {
-              // Error
-              Swal.fire({
-                icon: 'error',
-                text: data.error,
-              });
-            } else {
-              // Populate the details
-              imageUrl.src = data.image_url || 'https://dummyimage.com/128x128';
-              firstName.textContent = data.first_name || '';
-              lastName.textContent = data.last_name || '';
-              email.textContent = data.email || '';
-
-              // Populate the fields
-              imageUrlInput.value = data.image_url || 'https://dummyimage.com/128x128';
-              firstNameInput.value = data.first_name || '';
-              lastNameInput.value = data.last_name || '';
-              emailInput.value = data.email || '';
-              passwordInput.value = data.password || '';
-            }
-          })
-          .catch((error) => {
-            // Error
-            Swal.fire({
-              icon: 'error',
-              text: error.message,
-            });
-          });
-      }
-
       /**
        * Handle modal actions
        */
@@ -201,139 +133,17 @@
       }
 
       /**
-       * Handle form submission
-       */
-      document.getElementById('form').onsubmit = (event) => {
-        // Disable page refresh
-        event.preventDefault();
-
-        // Get the signed in account
-        let account = getSignedInAccount();
-
-        // Send AJAX request to server
-        fetch(`/api/accounts/${account.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            image_url: imageUrlInput.value,
-            first_name: firstNameInput.value,
-            last_name: lastNameInput.value,
-            email: emailInput.value,
-            password: passwordInput.value,
-          }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            // Check for errors
-            if (data.error) {
-              // Error
-              Swal.fire({
-                icon: 'error',
-                text: data.error,
-              });
-            } else {
-              // Update the account cookie
-              account = {
-                ...account,
-                image_url: imageUrlInput.value,
-                first_name: firstNameInput.value,
-                last_name: lastNameInput.value,
-                email: emailInput.value,
-              };
-              // Set cookie expire date
-              const date = new Date();
-              date.setTime(date.getTime() + 7 * 24 * 60 * 60 * 1000); // Expires in 7 days
-              document.cookie = `account=${encodeURIComponent(JSON.stringify(account))}; expires=${date.toGMTString()};`;
-
-              // Success
-              Swal.fire({
-                icon: 'success',
-                title: 'Account updated',
-                text: 'Refresh the page for changes to take full effect',
-              }).then(() => {
-                setTimeout(() => {
-                  // Close the modal
-                  closeModalEdit();
-                }, 300);
-                setTimeout(() => {
-                  // Get fresh account details from database
-                  getDetails();
-                }, 600);
-              });
-            }
-          })
-          .catch((error) => {
-            // Error
-            Swal.fire({
-              icon: 'error',
-              text: error.message,
-            });
-          });
-      };
-
-      /**
        * Handle deleting your account
        */
       function handleDelete() {
-        // Get the signed in account
-        const account = getSignedInAccount();
-
-        // Check if an account is signed in
-        if (account) {
-          // Prompt
-          Swal.fire({
-            icon: 'warning',
-            text: 'Do you really want to delete your account?',
-            showCancelButton: true,
-            confirmButtonText: 'Delete',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // Send AJAX request to server
-              fetch(`/api/accounts/${account.id}`, {
-                method: 'DELETE',
-              })
-                .then((res) => res.json())
-                .then((data) => {
-                  // Check for errors
-                  if (data.error) {
-                    Swal.fire({
-                      icon: 'error',
-                      text: data.error,
-                    });
-                  } else {
-                    // Success
-                    Swal.fire({
-                      icon: 'success',
-                      text: 'Your account has been deleted',
-                    }).then(() => {
-                      // Sign out
-                      handleSignout();
-                    });
-                  }
-                })
-                .catch((error) => {
-                  // Error
-                  Swal.fire({
-                    icon: 'error',
-                    text: error.message,
-                  });
-                });
-            }
-          });
-        } else {
-          // Error
-          Swal.fire({
-            icon: 'error',
-            text: 'No account is signed in right now',
-          });
-        }
+        // Prompt
+        Swal.fire({
+          icon: 'warning',
+          text: 'Do you really want to delete your account?',
+          showCancelButton: true,
+          confirmButtonText: 'Delete',
+        });
       }
-
-      getDetails();
-      toggleSignedInAccount();
-      showAdminActions();
     </script>
   </body>
 </html>
