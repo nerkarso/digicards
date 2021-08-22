@@ -6,6 +6,10 @@
 
 <p align="center">Design your own digital business cards that can be easily shared.</p>
 
+<p align="center">
+  <img src="demo.png" width="1024" />
+</p>
+
 Project management can be tracked on this [Trello board](https://trello.com/b/euocxOCd/topexcel-trello).
 
 [Website mockup](https://yiu50b.axshare.com) | [Designer mockup](https://4twccs.axshare.com)
@@ -62,14 +66,6 @@ You can get the `POLOTNO_API_KEY` from [https://polotno.dev/cabinet](https://pol
 
 ## Development
 
-**Start the design editor development server**
-
-```sh
-npm run editor
-```
-
-Open [http://localhost:1234](http://localhost:1234) in your browser.
-
 **Start the development web server**
 
 ```sh
@@ -77,6 +73,14 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+**Start the design editor development server**
+
+```sh
+npm run editor
+```
+
+Open [http://localhost:1234](http://localhost:1234) in your browser.
 
 ## Deployment
 
