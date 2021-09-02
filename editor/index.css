@@ -68,6 +68,9 @@ body {
   height: 28px;
   padding: 0 8px;
   min-width: 60px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .btn:hover {
   background-color: #f3f4f6;

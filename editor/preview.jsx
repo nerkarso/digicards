@@ -9,7 +9,7 @@ const store = createStore({
   showCredit: false,
 });
 
-const App = ({ store }) => {
+function App({ store }) {
   const [title, setTitle] = useState('Untitled');
 
   // Get the uuid from the URL
@@ -89,6 +89,6 @@ const App = ({ store }) => {
       </main>
     </>
   );
-};
+}
 
 ReactDOM.render(<App store={store} />, document.getElementById('preview'));

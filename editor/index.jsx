@@ -3,6 +3,7 @@ import { Workspace } from 'polotno/canvas/workspace';
 import { createStore } from 'polotno/model/store';
 import { BackgroundSection, ElementsSection, PhotosSection, SidePanel, SizeSection, TemplatesSection, TextSection } from 'polotno/side-panel';
 import { Toolbar } from 'polotno/toolbar/toolbar';
+import { downloadFile } from 'polotno/utils/download';
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -113,6 +114,35 @@ function App({ store }) {
     window.location = '/designs.html';
   };
 
+  // Handles loading the design from a JSON file
+  const handleLoadProject = (e) => {
+    const input = e.target;
+
+    if (!input.files.length) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const text = reader.result;
+      let json;
+      try {
+        json = JSON.parse(text);
+      } catch (e) {
+        window.Swal.fire({
+          icon: 'error',
+          text: 'Cannot load project',
+        });
+      }
+      if (json) store.loadJSON(json);
+    };
+    reader.onerror = () => {
+      window.Swal.fire({
+        icon: 'error',
+        text: 'Cannot load project',
+      });
+    };
+    reader.readAsText(input.files[0]);
+  };
+
   // Handles saving the design
   const handleSave = () => {
     // Check if uuid exists
@@ -197,6 +227,13 @@ function App({ store }) {
           });
         });
     }
+  };
+
+  // Handles saving the design as JSON file
+  const handleSaveProject = () => {
+    const json = store.toJSON();
+    const url = `data:text/json;base64,${window.btoa(unescape(encodeURIComponent(JSON.stringify(json))))}`;
+    downloadFile(url, `${title}.json`);
   };
 
   // Handles exporting as image
@@ -324,17 +361,24 @@ function App({ store }) {
             Open
           </button>
         )}
+        <button type="button" onClick={() => document.getElementById('load-project').click()} className="btn">
+          Open project
+        </button>
+        <input type="file" id="load-project" accept=".json" onChange={handleLoadProject} style={{ display: 'none' }} />
         <button type="button" onClick={handleSave} className="btn">
           Save
           <span id="dirty" className="hidden">
             *
           </span>
         </button>
+        <button type="button" onClick={handleSaveProject} className="btn">
+          Save project
+        </button>
         <button type="button" onClick={handleExportImage} className="btn">
-          Export as image
+          Export image
         </button>
         <button type="button" onClick={handleExportPDF} className="btn">
-          Export as PDF
+          Export PDF
         </button>
         {uuid && (
           <button type="button" onClick={handleShare} className="btn">
