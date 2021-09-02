@@ -1,7 +1,7 @@
 import { PolotnoContainer, SidePanelWrap, WorkspaceWrap } from 'polotno';
 import { Workspace } from 'polotno/canvas/workspace';
 import { createStore } from 'polotno/model/store';
-import { BackgroundSection, ElementsSection, PhotosSection, SidePanel, SizeSection, TextSection } from 'polotno/side-panel';
+import { BackgroundSection, ElementsSection, PhotosSection, SidePanel, SizeSection, TemplatesSection, TextSection } from 'polotno/side-panel';
 import { Toolbar } from 'polotno/toolbar/toolbar';
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
@@ -13,7 +13,7 @@ const store = createStore({
 });
 
 // Create a page
-store.setSize(960, 640);
+store.setSize(1280, 720);
 store.addPage();
 
 // The initial store data
@@ -37,7 +37,7 @@ store.on('change', () => {
 // Save the initial title of the design
 let initialTitle = 'Untitled';
 
-const App = ({ store }) => {
+function App({ store }) {
   const [uuid, setUuid] = useState();
   const [title, setTitle] = useState(initialTitle);
   const [account, setAccount] = useState();
@@ -363,7 +363,7 @@ const App = ({ store }) => {
       <main id="app">
         <PolotnoContainer>
           <SidePanelWrap>
-            <SidePanel store={store} defaultSection="text" sections={[TextSection, ElementsSection, PhotosSection, BackgroundSection, SizeSection]} />
+            <SidePanel store={store} defaultSection="templates" sections={[TemplatesSection, TextSection, ElementsSection, PhotosSection, BackgroundSection, SizeSection]} />
           </SidePanelWrap>
           <WorkspaceWrap>
             <Toolbar store={store} downloadButtonEnabled={false} />
@@ -373,6 +373,6 @@ const App = ({ store }) => {
       </main>
     </>
   );
-};
+}
 
 ReactDOM.render(<App store={store} />, document.getElementById('editor'));
