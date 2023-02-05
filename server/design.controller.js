@@ -10,7 +10,18 @@ const router = Router();
 router.get('/', async function findAll(req, res) {
   try {
     // Query the database
-    const [rows] = await res.db.query('SELECT * FROM designs ORDER BY updated DESC');
+    const [rows] = await res.db.query(`
+      SELECT
+        designs.*,
+        accounts.first_name,
+        accounts.last_name,
+        accounts.image_url
+      FROM
+        designs
+        INNER JOIN accounts ON designs.account_id = accounts.id
+      ORDER BY
+        updated DESC
+    `);
     // Success
     res.json(rows);
   } catch (error) {

@@ -111,7 +111,7 @@ function App({ store }) {
   // Handles opening the designs page
   const handleOpen = () => {
     // Redirect to designs page
-    window.location = '/designs.html';
+    window.location = '/my-designs.html';
   };
 
   // Handles loading the design from a JSON file
