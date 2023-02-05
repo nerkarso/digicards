@@ -353,41 +353,51 @@ function App({ store }) {
     <>
       <nav className="navbar">
         <img src="/img/icon.svg" className="logo" />
-        <button type="button" onClick={handleNew} className="btn">
-          New
-        </button>
-        {account && (
-          <button type="button" onClick={handleOpen} className="btn">
-            Open
-          </button>
-        )}
-        <button type="button" onClick={() => document.getElementById('load-project').click()} className="btn">
-          Open project
-        </button>
-        <input type="file" id="load-project" accept=".json" onChange={handleLoadProject} style={{ display: 'none' }} />
-        <button type="button" onClick={handleSave} className="btn">
-          Save
-          <span id="dirty" className="hidden">
-            *
-          </span>
-        </button>
-        <button type="button" onClick={handleSaveProject} className="btn">
-          Save project
-        </button>
-        <button type="button" onClick={handleExportImage} className="btn">
-          Export image
-        </button>
-        <button type="button" onClick={handleExportPDF} className="btn">
-          Export PDF
-        </button>
+        <div className="nav-menu">
+          <span className="btn">File</span>
+          <div className="nav-dropdown">
+            <button type="button" onClick={handleNew} className="nav-item">
+              New
+            </button>
+            {account && (
+              <button type="button" onClick={handleOpen} className="nav-item">
+                Open
+              </button>
+            )}
+            <button type="button" onClick={() => document.getElementById('load-project').click()} className="nav-item">
+              Open project
+            </button>
+            <input type="file" id="load-project" accept=".json" onChange={handleLoadProject} style={{ display: 'none' }} />
+            <button type="button" onClick={handleSave} className="nav-item">
+              Save
+              <span id="dirty" className="hidden">
+                *
+              </span>
+            </button>
+            <button type="button" onClick={handleSaveProject} className="nav-item">
+              Save project
+            </button>
+            <button type="button" onClick={handleExit} className="nav-item">
+              Exit
+            </button>
+          </div>
+        </div>
+        <div className="nav-menu">
+          <span className="btn">Export</span>
+          <div className="nav-dropdown">
+            <button type="button" onClick={handleExportImage} className="nav-item">
+              Export image
+            </button>
+            <button type="button" onClick={handleExportPDF} className="nav-item">
+              Export PDF
+            </button>
+          </div>
+        </div>
         {uuid && (
           <button type="button" onClick={handleShare} className="btn">
             Share
           </button>
         )}
-        <button type="button" onClick={handleExit} className="btn">
-          Exit
-        </button>
         <input type="text" value={title} onChange={handleInputChange} onBlur={handleInputBlur} className="inputTitle" placeholder="Title of your design" />
         {uuid && (
           <a href={`/preview/${uuid}`} className="btn" target="_blank">
